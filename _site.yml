@@ -1,0 +1,12 @@
+name: "Jake-Eisaguirre.github.io"
+title: "My Website"
+description: |
+  My Website
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Foods"
+      href: index.html
+    - text: "Choco"
+      href: about.html
+output: distill::distill_article
