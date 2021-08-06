@@ -1,18 +1,16 @@
 ---
 title: "Jake Eisaguirre"
-description: |
-  Welcome to my website. I hope you enjoy it!
+image: "IMG_3615_small.jpg"
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/"
+  - label: GitHub
+    url: "https://github.com/Jake-Eisaguirre/"
+  - label: Email
+    url: "mailto:eisaguirre@bren.ucsb.edu"
+output:
+  postcards::jolla
 site: distill::distill_website
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
-
-```
-
+ 
+This is my professional profile!

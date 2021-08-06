@@ -6,7 +6,7 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-08-06T11:14:24-07:00"
+      "last_modified": "2021-08-06T14:45:50-07:00"
     },
     {
       "path": "CV.html",
@@ -14,15 +14,14 @@
       "description": "Work experience ",
       "author": [],
       "contents": "\n\n\nggplot(data = diamonds, aes(x = carat, y = price)) +\n  geom_point(aes(color = price))\n\n\n\n\n\n\n\n",
-      "last_modified": "2021-08-06T11:14:30-07:00"
+      "last_modified": "2021-08-06T14:45:57-07:00"
     },
     {
       "path": "index.html",
       "title": "Jake Eisaguirre",
-      "description": "Welcome to my website. I hope you enjoy it!\n",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2021-08-06T11:14:30-07:00"
+      "contents": "\n\n          \n          \n          My Website\n          \n          \n          Foods\n          Choco\n          CV\n          ☰\n          \n          \n      \n        \n          \n            Jake Eisaguirre\n          \n          \n            \n              This is my professional profile!\n            \n            \n              This is my professional profile!\n            \n          \n\n          \n            \n              \n                  \n                    \n                      LinkedIn\n                    \n                  \n                \n                                \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    LinkedIn\n                  \n                \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2021-08-06T14:48:06-07:00"
     }
   ],
   "collections": []
