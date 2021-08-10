@@ -5,9 +5,9 @@ description: |
 output_dir: "docs"
 navbar:
   right:
-    - text: "Bio"
+    - text: "Biography"
       href: index.html
-    - text: "CV"
+    - text: "Curriculum Vitae"
       href: CV.html
     - text: "Blog"
       href: blog.html

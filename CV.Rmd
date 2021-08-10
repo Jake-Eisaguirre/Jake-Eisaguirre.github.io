@@ -1,14 +1,11 @@
 ---
 title: "CV"
 description: |
-preview: Eisaguirre_CV.jpg
+
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 
-CV <- knitr::include_graphics("Eisaguirre_CV.pdf")
-CV
 
 
 ```
