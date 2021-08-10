@@ -1,0 +1,53 @@
+[
+  {
+    "path": "posts/2021-08-10-a-new-function-i-learned/",
+    "title": "A new function I learned",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Jake Eisaguirre",
+        "url": {}
+      }
+    ],
+    "date": "2021-08-10",
+    "categories": [],
+    "contents": "\n\n\n\n\n\n\n",
+    "preview": "posts/2021-08-10-a-new-function-i-learned/a-new-function-i-learned_files/figure-html5/unnamed-chunk-1-1.png",
+    "last_modified": "2021-08-10T10:48:55-07:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/2021-08-10-ak-spearing-trip/",
+    "title": "AK Spearing Trip",
+    "description": "My 2021 speafishing trip to South Central AK.",
+    "author": [
+      {
+        "name": "Jake Eisaguirre",
+        "url": {}
+      }
+    ],
+    "date": "2021-08-10",
+    "categories": [],
+    "contents": "\n\n\n\n",
+    "preview": "posts/2021-08-10-ak-spearing-trip/AK_pic.png",
+    "last_modified": "2021-08-10T10:49:50-07:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/2021-08-10-hello/",
+    "title": "My first blog post",
+    "description": "Some new things I learned this week",
+    "author": [
+      {
+        "name": "Jake Eisaguirre",
+        "url": {}
+      }
+    ],
+    "date": "2021-08-10",
+    "categories": [],
+    "contents": "\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-08-10T10:45:27-07:00",
+    "input_file": {}
+  }
+]

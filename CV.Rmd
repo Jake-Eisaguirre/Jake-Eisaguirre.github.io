@@ -1,20 +1,18 @@
 ---
 title: "CV"
 description: |
-  Work experience 
+preview: Eisaguirre_CV.jpg
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-```
 
-```{r}
+CV <- knitr::include_graphics("Eisaguirre_CV.pdf")
+CV
 
-ggplot(data = diamonds, aes(x = carat, y = price)) +
-  geom_point(aes(color = price))
 
 ```
+
 
 
 

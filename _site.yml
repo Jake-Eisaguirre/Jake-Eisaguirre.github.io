@@ -5,10 +5,10 @@ description: |
 output_dir: "docs"
 navbar:
   right:
-    - text: "Foods"
+    - text: "Bio"
       href: index.html
-    - text: "Choco"
-      href: about.html
     - text: "CV"
       href: CV.html
+    - text: "Blog"
+      href: blog.html
 output: distill::distill_article

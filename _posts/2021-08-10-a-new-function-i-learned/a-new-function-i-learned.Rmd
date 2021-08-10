@@ -1,0 +1,27 @@
+---
+title: "A new function I learned"
+description: |
+  A short description of the post.
+author:
+  - name: Jake Eisaguirre
+    url: {}
+date: 08-10-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(palmerpenguins)
+```
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+```
+
+
+
