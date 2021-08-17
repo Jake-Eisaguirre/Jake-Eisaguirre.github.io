@@ -15,6 +15,8 @@ site: distill::distill_website
 ### Biography                                                                                                                                                                                                                                                                          
 I am an experienced kelp forest field technician who is a first-year Data Science Masters student at The Bren School of Environmental Science and Management graduate school. I graduated in 2019 from the University of California, Santa Barbara, with a B.S. in Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology. Since 2017, I have been conducting kelp forest surveys at the Northern Channel Islands for the Partnership of Interdisciplinary Studies of Coastal Oceans (PISCO). I have also worked for the California Department of Fish and Wildlife (CDFW) under the Pelagic Fisheries and Ecosystem Project as a squid fishery dock sampler. During my time with PISCO and CDFW, I began learning the proper tools needed to analyze large ecological data sets. I quickly understood the power and importance of using advanced statistical analysis and computer software to answer ecological questions. My field seasons with PISCO have reinforced a connection with our natural world that drives me to answer the unknowns within our ecosystems. I have life goals to apply my Data Science skills to the ecological world to uncover meaningful tools that will be used to conserve and restore our natural resources.
 
+--------------------------------------------------------------------------------------------------------------------------------------------
+
 ### Education
 
 **Masters in Environmental Data Science**                                                                                                 
@@ -23,6 +25,7 @@ Bren School of Environmental Science and Management (2021-2022)-Santa Barbara, C
 **Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology (B.S.)**                               
 University of California, Santa Barbara (2015-2019)- Santa Barbara, California
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Experience
 
