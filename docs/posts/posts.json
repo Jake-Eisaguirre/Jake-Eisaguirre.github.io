@@ -2,7 +2,7 @@
   {
     "path": "posts/2021-08-16-data-wrangling/",
     "title": "Data Wrangling",
-    "description": "Here are some new functions I used to quickly tabulate large data sets.",
+    "description": "Here are some new functions I learned which help quickly tabulate large data sets.",
     "author": [
       {
         "name": "Jake Eisaguirre",
@@ -11,9 +11,9 @@
     ],
     "date": "2021-08-16",
     "categories": [],
-    "contents": "\n-filter()\n-mutate()\n-select()\n-summarize()\n-group_by()\n-case_when()\n\n\n\n",
+    "contents": "\n-filter() <- used for rows\n-mutate() <- adds a new column\n-select() <- used for columns\n-summarize() <- creates a new data table\n-group_by() <- groups variables for calculations\n-case_when() <- can filter and select by conditional statements\n\n\n\n",
     "preview": "posts/2021-08-16-data-wrangling/download.jpeg",
-    "last_modified": "2021-08-16T17:00:59-07:00",
+    "last_modified": "2021-08-17T11:34:16-07:00",
     "input_file": {}
   }
 ]

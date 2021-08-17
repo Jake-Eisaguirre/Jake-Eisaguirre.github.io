@@ -1,7 +1,7 @@
 ---
 title: "Data Wrangling"
 description: |
-  Here are some new functions I used to quickly tabulate large data sets.
+  Here are some new functions I learned which help quickly tabulate large data sets.
 author:
   - name: Jake Eisaguirre
 date: 08-16-2021
@@ -16,17 +16,17 @@ preview: download.jpeg
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
--filter()
+-filter() <- used for rows
 
--mutate()
+-mutate() <- adds a new column
 
--select()
+-select() <- used for columns
 
--summarize()
+-summarize() <- creates a new data table
 
--group_by()
+-group_by() <- groups variables for calculations
 
--case_when()
+-case_when() <- can filter and select by conditional statements 
 
 
 
