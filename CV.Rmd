@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * In Progress
 
 
-**B.S. Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology**
+**Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology (B.S.)**                                               
 **University of California, Santa Barbara (2015-2019)- Santa Barbara, California**
 
 * GPA: 3.46 (3.85 Upper division)
