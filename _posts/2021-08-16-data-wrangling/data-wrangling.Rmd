@@ -1,0 +1,32 @@
+---
+title: "Data Wrangling"
+description: |
+  Here are some new functions I used to quickly tabulate large data sets.
+author:
+  - name: Jake Eisaguirre
+date: 08-16-2021
+output:
+  distill::distill_article:
+    self_contained: false
+preview: download.jpeg
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+-filter()
+
+-mutate()
+
+-select()
+
+-summarize()
+
+-group_by()
+
+-case_when()
+
+
+
