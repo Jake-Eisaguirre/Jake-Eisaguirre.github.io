@@ -1,7 +1,7 @@
 ---
 title: "Bringing it All Together"
 description: |
-  Some examples of using all our tools to create data visualizations.
+  Some examples of using all my tools from EDS 221 to wrangle and create data visualizations.
 author:
   - name: Jake Eisaguirre
     url: {}
@@ -23,7 +23,7 @@ library(kableExtra)
 ```
 
 
-```{r, echo = FALSE}
+```{r}
 
 fids <- read_csv(here("_posts","2021-08-20-bringing-it-all-together", "HTL-MAR-FiddlerCrabBodySize_copy.csv"))
 
@@ -33,11 +33,8 @@ fids <- read_csv(here("_posts","2021-08-20-bringing-it-all-together", "HTL-MAR-F
 ## Data Exploration
 
 
-Here we have a nice figure in which we can do some initial data exploration regarding carapace width by latitude.
 
-
-
-```{r echo= FALSE}
+```{r}
 ggplot(fids, aes(x = Latitude, y = carapace_width)) + 
   geom_point(aes(color = Latitude)) +
   labs(title = "Carapace Width by Latitude",
@@ -49,25 +46,19 @@ ggplot(fids, aes(x = Latitude, y = carapace_width)) +
 ```
 
 
+Here we have a nice figure in which we can do some initial data exploration regarding carapace width by latitude.
 
 
 ## Data Table
 
 
-Here is a data table with some basic info about our fiddler crabs at different sites
 
-
-
-```{r echo=F}
+```{r}
 
 data <- fids %>%
-  
   clean_names() %>% 
-  
   group_by(site) %>% 
-  
   summarize(mean_carapace_width = round(mean(carapace_width), 2), sd_carapace_width = round(sd(carapace_width), 2), sample_size = n())
-  
 
 kable(data, col.name = c("Site", "Mean Carapace Width (mm)", "SD Carapace Width (mm)", "Sample Size")) %>% 
   kable_classic()
@@ -76,15 +67,14 @@ kable(data, col.name = c("Site", "Mean Carapace Width (mm)", "SD Carapace Width 
 ```
 
 
+Here is a data table with some basic info about our fiddler crabs at different sites
 
 
 ## Temperature vs Carapace Width
 
 
-Here we can see the possible correlation between mean carapace width and temperature
 
-
-```{r, echo = FALSE, fig.alt = "Scatterplot of mean annual temperature compared to mean carapace width. Increases in temeperature result in decreases in mean width size."}
+```{r, fig.alt = "Scatterplot of mean annual temperature compared to mean carapace width. Increases in temeperature result in decreases in mean width size."}
 mean_data = fids %>% 
   clean_names() %>%
   group_by(matw) %>% 
@@ -96,12 +86,17 @@ ggplot(mean_data, aes(x = matw, y = mean_carapace_width)) +
        x = "Mean Annual Water Temperature", 
        y = "Mean Carapace Width (mm)", 
        caption = "Figure B shows a negative trend in mean carapace width with increase in water temperature.") +
-  theme_classic()
+  theme_classic() +
+  geom_smooth(method = "lm")
 
 ```
 
 
-## Citations 
+Here we can see the possible correlation between mean carapace width and temperature
+
+
+
+### Citations 
 * Johnson, D. 2019. Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. ver 1. Environmental Data Initiative. https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb (Accessed 2021-08-20).
 
 * Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686,

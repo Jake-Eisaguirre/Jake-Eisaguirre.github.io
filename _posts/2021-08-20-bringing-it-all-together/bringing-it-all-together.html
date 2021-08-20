@@ -22,7 +22,7 @@
   <!--radix_placeholder_meta_tags-->
   <title>Bringing it All Together</title>
 
-  <meta property="description" itemprop="description" content="Some examples of using all our tools to create data visualizations."/>
+  <meta property="description" itemprop="description" content="Some examples of using all my tools from EDS 221 to wrangle and create data visualizations."/>
 
 
   <!--  https://schema.org/Article -->
@@ -33,19 +33,19 @@
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Bringing it All Together"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Some examples of using all our tools to create data visualizations."/>
+  <meta property="og:description" content="Some examples of using all my tools from EDS 221 to wrangle and create data visualizations."/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Bringing it All Together"/>
-  <meta property="twitter:description" content="Some examples of using all our tools to create data visualizations."/>
+  <meta property="twitter:description" content="Some examples of using all my tools from EDS 221 to wrangle and create data visualizations."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Bringing it All Together"]},{"type":"character","attributes":{},"value":["Some examples of using all our tools to create data visualizations.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Jake Eisaguirre"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["08-20-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Bringing it All Together"]},{"type":"character","attributes":{},"value":["Some examples of using all my tools from EDS 221 to wrangle and create data visualizations.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Jake Eisaguirre"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["08-20-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1391,7 +1391,7 @@
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Bringing it All Together","description":"Some examples of using all our tools to create data visualizations.","authors":[{"author":"Jake Eisaguirre","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-08-20T00:00:00.000+00:00","citationText":"Eisaguirre, 2021"}
+{"title":"Bringing it All Together","description":"Some examples of using all my tools from EDS 221 to wrangle and create data visualizations.","authors":[{"author":"Jake Eisaguirre","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-08-20T00:00:00.000+00:00","citationText":"Eisaguirre, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1404,7 +1404,7 @@
 <h1>Bringing it All Together</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Some examples of using all our tools to create data visualizations.</p></p>
+<p><p>Some examples of using all my tools from EDS 221 to wrangle and create data visualizations.</p></p>
 </div>
 
 <div class="d-byline">
@@ -1415,16 +1415,38 @@
 
 <div class="d-article">
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fids</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'>here</span><span class='op'>(</span><span class='st'>"_posts"</span>,<span class='st'>"2021-08-20-bringing-it-all-together"</span>, <span class='st'>"HTL-MAR-FiddlerCrabBodySize_copy.csv"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
 </div>
 <h2 id="data-exploration">Data Exploration</h2>
-<p>Here we have a nice figure in which we can do some initial data exploration regarding carapace width by latitude.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>fids</span>, <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Latitude</span>, y <span class='op'>=</span> <span class='va'>carapace_width</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>Latitude</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Carapace Width by Latitude"</span>,
+       x <span class='op'>=</span> <span class='st'>"Latitude"</span>, 
+       y <span class='op'>=</span> <span class='st'>"Carapace Width (mm)"</span>, 
+       caption <span class='op'>=</span> <span class='st'>"Figure A is the observed Caprapace widths at latitude degrees"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="bringing-it-all-together_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
+<p>Here we have a nice figure in which we can do some initial data exploration regarding carapace width by latitude.</p>
 <h2 id="data-table">Data Table</h2>
-<p>Here is a data table with some basic info about our fiddler crabs at different sites</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>fids</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>clean_names</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>site</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>summarize</span><span class='op'>(</span>mean_carapace_width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>carapace_width</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>, sd_carapace_width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>carapace_width</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>, sample_size <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'>kable</span><span class='op'>(</span><span class='va'>data</span>, col.name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Site"</span>, <span class='st'>"Mean Carapace Width (mm)"</span>, <span class='st'>"SD Carapace Width (mm)"</span>, <span class='st'>"Sample Size"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>kable_classic</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1628,12 +1650,29 @@ ZI
 </tbody>
 </table>
 </div>
+<p>Here is a data table with some basic info about our fiddler crabs at different sites</p>
 <h2 id="temperature-vs-carapace-width">Temperature vs Carapace Width</h2>
-<p>Here we can see the possible correlation between mean carapace width and temperature</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mean_data</span> <span class='op'>=</span> <span class='va'>fids</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>clean_names</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>matw</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>summarize</span><span class='op'>(</span>mean_carapace_width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>carapace_width</span><span class='op'>)</span><span class='op'>)</span>
+  
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mean_data</span>, <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>matw</span>, y <span class='op'>=</span> <span class='va'>mean_carapace_width</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Mean Carapace Width by Temp"</span>, 
+       x <span class='op'>=</span> <span class='st'>"Mean Annual Water Temperature"</span>, 
+       y <span class='op'>=</span> <span class='st'>"Mean Carapace Width (mm)"</span>, 
+       caption <span class='op'>=</span> <span class='st'>"Figure B shows a negative trend in mean carapace width with increase in water temperature."</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_smooth</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="bringing-it-all-together_files/figure-html5/unnamed-chunk-4-1.png" title="Scatterplot of mean annual temperature compared to mean carapace width. Increases in temeperature result in decreases in mean width size." alt="Scatterplot of mean annual temperature compared to mean carapace width. Increases in temeperature result in decreases in mean width size." width="624" /></p>
 </div>
-<h2 id="citations">Citations</h2>
+<p>Here we can see the possible correlation between mean carapace width and temperature</p>
+<h3 id="citations">Citations</h3>
 <ul>
 <li><p>Johnson, D. 2019. Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. ver 1. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb" class="uri">https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb</a> (Accessed 2021-08-20).</p></li>
 <li><p>Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a></p></li>
