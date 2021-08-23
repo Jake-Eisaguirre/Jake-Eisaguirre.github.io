@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-08-22-figure/",
+    "title": "Sexy Figures",
+    "description": "A handful of figures trying out different functions within ggplot.",
+    "author": [
+      {
+        "name": "Jake Eisaguirre",
+        "url": {}
+      }
+    ],
+    "date": "2021-08-22",
+    "categories": [],
+    "contents": "\n\n\nhide\n\nliz <-  read_csv(here::here(\"lizards.csv\"))\n\n\n\n\n\nhide\n\n\nww_liz <- liz %>% \n  filter(common_name == \"western whiptail\", site == \"sand\")\n\nggplot(ww_liz, aes(x = total_length, y = weight)) +\n  geom_point() +\n  theme_classic() +\n  geom_text_repel(aes(label = toe_num), size = 3, max.overlaps = 20)\n\n\n\n\n\n\nhide\n\ndata <- gapminder %>% \n  filter(continent == \"Europe\", year == 1952)\n\nggplot(data, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_text_repel(aes(label = country), size =  3) +\n  theme_classic()\n\n\n\n\n\n\nhide\n\np <- ggplot(liz, aes(x = total_length, y = weight)) +\n  geom_point()\n\np + gghighlight(toe_num == 250, label_key = toe_num) + \n  theme_classic()\n\n\n\n\n\n\nhide\n\nq <- ggplot(liz, aes(x = total_length, y = weight)) +\n  geom_line(aes(color = common_name)) +\n  gghighlight(max(weight) > 30) +\n  theme_classic()\n\nq\n\n\n\n\n\n\nhide\n\n(p | q) / q & theme_classic()\n\n\n\n\n\n\nhide\n\nwhiptails <- liz %>% \n  filter(common_name == \"western whiptail\") %>% \n  drop_na(total_length, weight)\n\nggplot(data = whiptails, aes(x = total_length, y = weight)) +\n  geom_point() + \n  theme_classic() +\n  geom_rug()\n\n\n\n\n\n\nhide\n\nj <- ggplot(data = whiptails, aes(x = total_length, y = weight)) +\n  geom_point(aes(color = sex), size = 2) + \n  scale_color_manual(values = c(\"cyan4\", \"black\", \"goldenrod\"),\n                     name = \"Sex:\",\n                     labels = c(\"female\", \"juvenile\", \"male\")) +\n   theme_classic() +\n  theme(legend.position = \"bottom\")\n\nggMarginal(j, type = \"boxplot\", groupColour = T)\n\n\n\n\n\n\nhide\n\nggplot(whiptails, aes(x = sex, y = weight)) +\n  geom_beeswarm() +\n  geom_violin(fill = NA) +\n  geom_boxplot(fill = NA) +\n  theme_classic()\n\n\n\n\n\n\nhide\n\nlizard_counts <- liz %>% \n  mutate(date = mdy(date)) %>% \n  mutate(year = year(date)) %>% \n  count(year, common_name) %>% \n  rename(count = n)\n\n\n\n\n\nhide\n\nggplot(data = lizard_counts, aes(x = year, y = common_name)) +\n  theme_classic() +\n  geom_tile(aes(fill = count)) +\n  geom_text(aes(label = count), color = \"white\", size = 3) +\n  scale_fill_gradientn(colors = c(\"navy\", \"red\", \"orange\")) + \n  scale_fill_viridis_c()\n\n\n\n\n\n\nhide\n\njornada_veg <- read_sf(here(\"spatial_vegetation\", \"doc.kml\")) %>% \n  select(Name) %>% \n  clean_names()\n\nggplot(data = jornada_veg) +\n  geom_sf(aes(fill = name), color = NA) +\n  scale_fill_viridis_d() +\n  theme_minimal() +\n  labs(x =  \"Longitude\",\n       y = \"Latitude\",\n       fill = \"Dominant vegetation:\")\n\n\n\n\n\n\n\n",
+    "preview": "posts/2021-08-22-figure/figure_files/figure-html5/unnamed-chunk-2-1.png",
+    "last_modified": "2021-08-22T18:48:53-07:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-08-20-bringing-it-all-together/",
     "title": "Bringing it All Together",
     "description": "Some examples of using all my tools from EDS 221 to wrangle and create data visualizations.",
