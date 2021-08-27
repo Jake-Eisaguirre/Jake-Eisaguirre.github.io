@@ -1,7 +1,7 @@
 ---
 title: "Hurricane Impacts on Stream Chemical Composition in the Luquillo Mountains, Puerto Rico"
 description: |
-  A short description of the post.
+ 
 author:
   - Felicia Cruz 
   - Jake Eisaguirre 
