@@ -1,7 +1,7 @@
 ---
 title: "Using Data Science to Catch Fish"
 description: |
-  The free webstie I was using to find temperature breaks and chlorophyll levels in our local waters were not accurate. So I created my own figures to help determine where to find game fish.  
+  The free webstie I was using to find temperature breaks and chlorophyll levels in our local waters was not accurate. So I created my own figures to help determine where to find game fish.  
 author:
   - name: Jake Eisaguirre
     url: {}
@@ -11,6 +11,7 @@ output:
     self_contained: false
 ---
 
+##### This is a work in progress. My next challenge is to include bathymetry lines. Next I would like to add bouy locations that gives live readings of sea conditions. Then I want to use the `leaflet` package to overlay the two figures so I can toggle between SST and Chlorophyll. Finally I would like to make the figure interacive so one can zoom in and out. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -32,13 +33,9 @@ library(leaflet)
 
 ```
 
-
-# Read in SST and Chloro from website
+# Read in SST and Chloro from NOAA Aqua MODIS Satelite
 ```{r}
 require("rerddap")
-## base URL does not need to given because it is the default one
-three_day_sst <- info('erdMWsstd1day_LonPM180')
-three_day_sst
 
 raw_sst <- griddap('erdMWsstd1day_LonPM180',
  time = c('last','last'),
@@ -71,8 +68,7 @@ b_df <- data.frame(b_name, b_lat, b_long)
 
 ```
 
-# Read in Data from Aqua Modis
-
+# Read in CA and N. Channel Islands outline
 ```{r}
 
 
@@ -84,8 +80,7 @@ ca <- ne_countries(country = "united states of america", scale = "large", return
 
 ```
 
-# clean data
-
+# Clean SST data
 ```{r}
 
 sst <- raw_sst[-c(2)] 
@@ -101,12 +96,10 @@ mut_sst <- clean_sst %>%
 final_sst <- mut_sst %>% 
   mutate(sst = (sst * (9/5) + 32 )) %>% 
   mutate(sst = (sst - 3))
-  
-
 
 ```
 
-# plot
+# SST plot
 ```{r}
 sst_plot <- ggplot() +
   geom_raster(data = final_sst, aes(y=latitude, x=longitude, fill = sst), 
@@ -136,7 +129,7 @@ Temperature (F)") +
 
 ```
 
-
+# Clean Chloro data
 ```{r}
 
 chloro <- raw_chloro[-c(2)] 
@@ -152,6 +145,7 @@ final_chloro <- clean_chloro %>%
 
 ```
 
+# Chloro plot
 ```{r}
 
 chloro_plot <- ggplot() +
@@ -184,14 +178,11 @@ chloro_plot <- ggplot() +
   coord_sf(xlim = c(-120.69999999999999, -118.75), ylim = c(33.1125, 34.9), expand = FALSE)
   
   
-
-  
-
-  
-
-grid.arrange(sst_plot, chloro_plot, ncol=2)
-  
 ```  
+# Final Product
+```{r}
+grid.arrange(sst_plot, chloro_plot, ncol=2)
+```
 
 
 
