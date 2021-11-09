@@ -1,5 +1,5 @@
 ---
-title: "Sexy Figures"
+title: "Figures"
 description: |
   A handful of figures trying out different functions within ggplot.
 author:
