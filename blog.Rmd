@@ -1,4 +1,4 @@
 ---
-title: "My Blog"
+title: "Interesting Data Science Projects and Tools"
 listing: posts
 ---
