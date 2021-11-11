@@ -7,7 +7,7 @@ navbar:
   right:
     - text: "Biography"
       href: index.html
-    - text: "Resume"
+    - text: "Résumé"
       href: CV.html
     - text: "Blog"
       href: blog.html
