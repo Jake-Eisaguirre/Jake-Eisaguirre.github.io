@@ -1,0 +1,181 @@
+---
+title: "CDIP Buoy Forecast"
+description: |
+  I am developing CDIP swell model forecasts to be implemented on a website. This is a work in progress.
+author:
+  - name: Jake Eisaguirre
+    url: {}
+date: 2021-11-10
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = T)
+
+library(leafem) 
+library(terra)
+library(raster)
+library(sp)
+library(here)
+library(stars)
+library(lubridate)
+library(tidyverse)
+library(rasterVis)
+library(shiny)
+library(leaflet)
+library(patchwork)
+library(plotly)
+library(rgdal)
+library(terra)
+library(rasterVis)
+library(animation)
+library(htmlwidgets)
+```
+
+
+# Read in and subset data for variable and ROI
+```{r}
+url <- "http://thredds.cdip.ucsd.edu//thredds/fileServer/cdip/model/MOP_grids/CA_0.01_forecast.nc"
+
+options(timeout = 10000)
+
+#data <- download.file(url, "/Users/JaketheBoss/Desktop/wave_data.nc")
+
+data_set <- "wave_data.nc"
+
+
+waves <- rast(data_set, sub = "waveHs")
+ROI <- ext(-121.0062, -118.7438, 33.10625, 34.90625)
+wave_crop <- crop(waves, ROI)
+
+```
+
+
+
+# Shape Files
+```{r}
+islands <- read_sf(here("/Users","JaketheBoss", "Documents", "Bren", "SST Code", 
+                        "SST", "SST", "data", "shape", "channel_islands.shp")) %>% 
+  mutate(geometry = st_transform(geometry, crs = 4326)) %>% 
+  filter(!NAME %in% c("Santa Catalina", "San Clemente"))
+
+ca <- read_sf(here("/Users","JaketheBoss", "Documents", "Bren", 
+                   "SST Code", "SST", "SST", "s_11au16", "s_11au16.shp")) %>% 
+  mutate(geometry = st_transform(geometry, crs = 4326)) %>% 
+  filter(NAME == "California")
+```
+
+
+
+# Clean dates and re-sample
+```{r}
+remove_txt <- gsub("waveHs_waveTime.", "", names(wave_crop)) %>% 
+  as.numeric() %>% 
+  as_datetime()
+
+names(wave_crop) <- c(remove_txt)
+
+
+raz_temp <- rast(xmin = -121.0062,
+                      xmax = -118.7438,
+                      ymin = 33.10625,
+                      ymax = 34.90625,
+                      resolution = c(0.001, 0.001))
+
+brick_resample <- resample(wave_crop, raz_temp)
+
+
+wave_pal <- colorRampPalette(c("blue", "cyan", "yellow", "red"))
+
+plot(brick_resample, col = wave_pal(25))
+
+
+brick_resample <- brick(brick_resample)
+
+rm(waves, ROI, raz_temp)
+gc()
+
+```
+
+
+
+#Exploratory leaflet map (work in progress)
+```{r}
+
+t_1 <- subset(brick_resample, 1:1)  
+
+base_map <- leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+  addPolygons(data = islands, color = 'black', opacity = 1, weight = 2, fill = F)%>% 
+  addPolygons(data = ca, color = 'black', opacity = 1, weight = 2, fill = F) %>%
+  addProviderTiles("Esri.OceanBasemap") %>% 
+  setView(lng = -119.700336, lat = 34.14, zoom = 8.5)
+  
+
+add_one_layer <- addRasterImage(base_map, t_1, group = "t_1", colors = wave_pal(5)) %>% 
+  addLayersControl(
+      baseGroups = c("t_1","t_2","t_3","t_4","t_5","t_6","t_7","t_8","t_9",
+                     "t_10","t_11","t_12","t_13","t_14","t_15","t_16"),
+      options = layersControlOptions(collapsed = FALSE))%>% 
+    setView(lng = -119.200336, lat = 34.14, zoom = 9) %>% 
+    setMaxBounds(lng1 = -121.0,
+                 lat1 = 33.1125,
+                 lng2 = -118.75,
+                 lat2 = 34.9) 
+
+add_one_layer
+
+
+```
+
+
+
+#Shiny App (still de-bugging)
+```{r}
+
+library(shiny)
+ui <- fluidPage(
+  
+  titlePanel("Wave Model"),
+  
+  leafletOutput("brick_resample", height = 500),
+  
+  selectInput("names", "Select Date Range",
+              names(brick_resample))
+  
+)
+
+server <- function(input, output, session){
+  
+  #Reactive
+   slid <- reactive({
+     brick_resample$names$data_set
+     #brick_resample$names
+     #names(brick_resample)
+     #brick_resample[names]
+   })
+
+
+  #Map
+  output$brick_resample <- renderLeaflet({
+    
+    leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+      addPolygons(data = islands, color = 'black', opacity = 1, weight = 2, fill = F)%>% 
+      addPolygons(data = ca, color = 'black', opacity = 1, weight = 2, fill = F)%>%
+      addProviderTiles("Esri.OceanBasemap") %>% 
+      addRasterImage(x = slid(), colors = wave_pal(5)) %>% 
+        setView(lng = -119.200336, lat = 34.14, zoom = 9) %>% 
+        setMaxBounds(lng1 = -121.0,
+                 lat1 = 33.1125,
+                 lng2 = -118.75,
+                 lat2 = 34.9)
+    })
+}
+
+shinyApp(ui = ui, server = server)
+  
+```
+
+
