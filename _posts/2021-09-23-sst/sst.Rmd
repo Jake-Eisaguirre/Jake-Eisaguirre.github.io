@@ -334,7 +334,7 @@ final_chloro$chlorophyll <- abs(log(final_chloro$chlorophyll))
 ```
 
 #### Create Rasters and Build `leaflet` map
-```{r}
+```{r, width = 40, height = 30}
 #sst raster
 r_sst <- final_sst[-c(1)]
 
@@ -416,7 +416,7 @@ Buoy <-makeIcon('icons8-buoy-50.png', iconWidth = 30, iconHeight = 30)
 
   
 
-app <- leaflet(options = leafletOptions(minZoom = 8.5)) %>%
+app <- leaflet(options = leafletOptions(minZoom = 7.5)) %>%
   addPolygons(data = cha, color = 'black', opacity = 1, weight = 2, fill = F) %>% 
   addPolygons(data = ca, color = 'black', opacity = 1, weight = 2, fill = F) %>% 
   addPolygons(data = smr, group = "MPA Status", color = "red", popup = ~NAME) %>%
@@ -527,7 +527,7 @@ app <- leaflet(options = leafletOptions(minZoom = 8.5)) %>%
       updateLegend();
       this.on('baselayerchange', e => updateLegend());
     }") %>% 
-  setView(lng = -119.200336, lat = 33.808464, zoom = 8.5) %>% 
+  setView(lng = -119.200336, lat = 33.808464, zoom = 7.5) %>% 
   setMaxBounds(lng1 = -121.6,
                lat1 = 35.0,
                lng2 = -116.5,
