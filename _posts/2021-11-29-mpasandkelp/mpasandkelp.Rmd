@@ -134,7 +134,6 @@ annual_mean <- raw_data %>%
   ungroup()
  
 
-
   
 
 ```
@@ -176,7 +175,6 @@ combined + plot_layout(guides = "collect")
 
 
 
-
 ```
 
 #### Linear Model
@@ -196,6 +194,8 @@ tab_model(mod,
           string.ci = "Conf. Int (95%)",
           string.p = "P-value",
           title = "Tbl 1. Linear Model Results for Below Predictors")
+
+
 
 
 annual_mean %>% 
@@ -249,6 +249,8 @@ kelp_boxp <- ggboxplot(annual_mean, x = "site_status", y = "log_mac",
                      bxp.errorbar = T,
                      alpha = 0.3, 
                      color = c("blue", "red"))
+
+
 
 kelp_boxp
 
@@ -338,7 +340,7 @@ tab_model(ref_mod, df.method = "kr",
           pred.labels = c("Intercept", "2 Years", "3 Years", "4 Years", "5 Years", "6 Years",
                           "7 Years", "8 Years", "9 Years", "10 Years", "12 Years", "13 Years", "14 Years",
                           "15 Years", "16 Years", "17 Years", "18 Years"),
-          dv.labels = c("Reference Site: log Kelp Density"),
+          dv.labels = c("log Kelp Density"),
           title = "Tbl 5. Linear model fit for change in reference site kelp density since implementation")
 
 
@@ -383,6 +385,8 @@ kelp_time_ref <- ggplot(data = time_lag_ref) +
        caption = "fig 6. Change in kelp density indicating (dashed lines) years of significant (p<0.05) kelp differences since MPA implementation") 
 
 kelp_time_mpa / kelp_time_ref
+
+
 
 
 ```
@@ -434,12 +438,13 @@ Further research needs to be conducted, however this study lends support to the 
 #### GitHub Repository: <https://github.com/Jake-Eisaguirre/Final_Project>
 
 ```{r}
-# Not normally distributed
+
 urch_dist <- ggplot(data = annual_mean) +
   geom_histogram(aes(den_STRPURAD), binwidth = 70) +
   theme_classic() +
   xlab(expression("Urchin Density per 60m"^2)) +
   labs(caption = "Distribution of dependent variables") 
+
 
 
 
@@ -449,6 +454,7 @@ mac_dist <- ggplot(data = annual_mean) +
   xlab(expression("Kelp Density per 60m"^2)) 
 
 urch_dist * mac_dist
+
 
 caption = 
 # Log Transformed Normality 
@@ -469,6 +475,7 @@ log_urch_dist * log_mac_dist
 
 
 
+
 # Model Fit
 
 aug <- annual_mean %>% 
@@ -483,10 +490,11 @@ ggplot(data = aug) +
 
 
 
+
 qqPlot(aug$residuals_mac) 
 
 
-paste0("mean residuals ", mean(aug$residuals_mac))
+
 
 
 
@@ -496,7 +504,6 @@ ggplot(data = aug) +
   theme_classic() +
   xlab(expression("Urchin Density per 60m"^2)) +
   ylab("Kelp Residuals")
-
 
 
 
