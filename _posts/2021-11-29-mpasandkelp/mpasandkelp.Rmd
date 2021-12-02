@@ -193,7 +193,8 @@ tab_model(mod,
           dv.labels = c("log Kelp Density"),
           string.ci = "Conf. Int (95%)",
           string.p = "P-value",
-          title = "Tbl 1. Linear Model Results for Below Predictors")
+          title = "Tbl 1. Linear Model Results for Below Predictors",
+          digits = 4)
 
 
 
