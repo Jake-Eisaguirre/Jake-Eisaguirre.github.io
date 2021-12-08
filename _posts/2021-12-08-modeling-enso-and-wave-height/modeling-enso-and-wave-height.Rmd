@@ -25,22 +25,6 @@ Click the binder icon above to begin a code along tutorial. A remote python sess
 Be patient, sometimes it takes a while for the session to initialize the first few times. 
 
 
-<div>
-<img src="harvest.png" width="300"/>  <img src="buoy.png" width="300"/>
-</div>
-
- 
-
-highest wave during the measurement period ~1.8 x Hs
-
-<div>
-<img src="wave_measurements.png" width="500"/>
-</div>
-
-<div>
-<im src="Documents/UCSB_Environmental_Data_Science/EDS_220_Remote_Sensing_and_Environmental_Data/220_group_project/mk-waves-tutorial/images/havest.png"/>
-</div>
-
 # HW3 Making Waves: CDIP Dataset Tutorial and Use Case Examples
 
 ### View and evaluating wave height and temperature from the Coastal Data Information Program
