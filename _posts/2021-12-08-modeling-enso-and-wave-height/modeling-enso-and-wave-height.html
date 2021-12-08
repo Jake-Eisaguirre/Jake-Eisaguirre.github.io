@@ -1,0 +1,3230 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Modeling Enso and Wave Height</title>
+
+  <meta property="description" itemprop="description" content="We are interested in investigating the effect of El Niño on our local oceanographic conditions. We used linear regression models to plot and compare equatorial sea surface temperature anomalies with local Santa Barbara temperature and wave height. Typically temperature anamolies are calcuated from a 30 year base period. Since we only had ~20 years of consistent data, we calculated monthly means since 1997 and used these as base values from which to compare monthly means for each year."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-12-08"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-12-08"/>
+  <meta name="article:author" content="Jake Eisaguirre"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Modeling Enso and Wave Height"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="We are interested in investigating the effect of El Niño on our local oceanographic conditions. We used linear regression models to plot and compare equatorial sea surface temperature anomalies with local Santa Barbara temperature and wave height. Typically temperature anamolies are calcuated from a 30 year base period. Since we only had ~20 years of consistent data, we calculated monthly means since 1997 and used these as base values from which to compare monthly means for each year."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Modeling Enso and Wave Height"/>
+  <meta property="twitter:description" content="We are interested in investigating the effect of El Niño on our local oceanographic conditions. We used linear regression models to plot and compare equatorial sea surface temperature anomalies with local Santa Barbara temperature and wave height. Typically temperature anamolies are calcuated from a 30 year base period. Since we only had ~20 years of consistent data, we calculated monthly means since 1997 and used these as base values from which to compare monthly means for each year."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","preview"]}},"value":[{"type":"character","attributes":{},"value":["Modeling Enso and Wave Height"]},{"type":"character","attributes":{},"value":["We are interested in investigating the effect of El Niño on our local oceanographic conditions. We used linear regression models to plot and compare equatorial sea surface temperature anomalies with local Santa Barbara temperature and wave height. Typically temperature anamolies are calcuated from a 30 year base period. Since we only had ~20 years of consistent data, we calculated monthly means since 1997 and used these as base values from which to compare monthly means for each year. \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Jake Eisaguirre"]},{"type":"character","attributes":{},"value":["https://github.com/mk-waves/mk-waves-tutorial"]}]}]},{"type":"character","attributes":{},"value":["2021-12-08"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["output_51_0.png"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["all_stations.png","buoy.png","havest.png","modeling-enso-and-wave-height_files/anchor-4.2.2/anchor.min.js","modeling-enso-and-wave-height_files/bowser-1.9.3/bowser.min.js","modeling-enso-and-wave-height_files/distill-2.2.21/template.v2.js","modeling-enso-and-wave-height_files/header-attrs-2.11/header-attrs.js","modeling-enso-and-wave-height_files/jquery-3.6.0/jquery-3.6.0.js","modeling-enso-and-wave-height_files/jquery-3.6.0/jquery-3.6.0.min.js","modeling-enso-and-wave-height_files/jquery-3.6.0/jquery-3.6.0.min.map","modeling-enso-and-wave-height_files/popper-2.6.0/popper.min.js","modeling-enso-and-wave-height_files/tippy-6.2.7/tippy-bundle.umd.min.js","modeling-enso-and-wave-height_files/tippy-6.2.7/tippy-light-border.css","modeling-enso-and-wave-height_files/tippy-6.2.7/tippy.css","modeling-enso-and-wave-height_files/tippy-6.2.7/tippy.umd.min.js","modeling-enso-and-wave-height_files/webcomponents-2.0.0/webcomponents.js","nino-regions.gif","output_47_1.png","output_51_0.png","output_70_1.png","output_81_1.png","output_82_1.png","output_83_1.png","wave_measurements.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="modeling-enso-and-wave-height_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="modeling-enso-and-wave-height_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="modeling-enso-and-wave-height_files/popper-2.6.0/popper.min.js"></script>
+  <link href="modeling-enso-and-wave-height_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="modeling-enso-and-wave-height_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="modeling-enso-and-wave-height_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="modeling-enso-and-wave-height_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="modeling-enso-and-wave-height_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="modeling-enso-and-wave-height_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="modeling-enso-and-wave-height_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Modeling Enso and Wave Height","description":"We are interested in investigating the effect of El Niño on our local oceanographic conditions. We used linear regression models to plot and compare equatorial sea surface temperature anomalies with local Santa Barbara temperature and wave height. Typically temperature anamolies are calcuated from a 30 year base period. Since we only had ~20 years of consistent data, we calculated monthly means since 1997 and used these as base values from which to compare monthly means for each year.","authors":[{"author":"Jake Eisaguirre","authorURL":"https://github.com/mk-waves/mk-waves-tutorial","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-12-08T00:00:00.000-08:00","citationText":"Eisaguirre, 2021"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Modeling Enso and Wave Height</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>We are interested in investigating the effect of El Niño on our local oceanographic conditions. We used linear regression models to plot and compare equatorial sea surface temperature anomalies with local Santa Barbara temperature and wave height. Typically temperature anamolies are calcuated from a 30 year base period. Since we only had ~20 years of consistent data, we calculated monthly means since 1997 and used these as base values from which to compare monthly means for each year.</p></p>
+</div>
+
+<div class="d-byline">
+  Jake Eisaguirre <a href="https://github.com/mk-waves/mk-waves-tutorial" class="uri">https://github.com/mk-waves/mk-waves-tutorial</a> 
+  
+<br/>2021-12-08
+</div>
+
+<div class="d-article">
+<p><a href="https://mybinder.org/v2/gh/mk-waves/mk-waves-tutorial/main"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
+<p>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<br />
+Click the binder icon above to begin a code along tutorial. A remote python session will launch in your browser with the tutorial Be patient, sometimes it takes a while for the session to initialize the first few times.</p>
+<div>
+<p><img src="harvest.png" width="300"/> <img src="buoy.png" width="300"/></p>
+</div>
+<p>highest wave during the measurement period ~1.8 x Hs</p>
+<div>
+<p><img src="wave_measurements.png" width="500"/></p>
+</div>
+<div>
+<p><im src="Documents/UCSB_Environmental_Data_Science/EDS_220_Remote_Sensing_and_Environmental_Data/220_group_project/mk-waves-tutorial/images/havest.png"/></p>
+</div>
+<h1 id="hw3-making-waves-cdip-dataset-tutorial-and-use-case-examples">HW3 Making Waves: CDIP Dataset Tutorial and Use Case Examples</h1>
+<h3 id="view-and-evaluating-wave-height-and-temperature-from-the-coastal-data-information-program">View and evaluating wave height and temperature from the Coastal Data Information Program</h3>
+<h2 id="eds-220-fall-2021">EDS 220, Fall 2021</h2>
+<h4 id="authors">Authors</h4>
+<p>Cullen Molitor, UC Santa Barbara (<a href="mailto:cullen_molitor@bren.ucsb.edu" class="email">cullen_molitor@bren.ucsb.edu</a>) <a href="https://cullen-molitor.github.io/" class="uri">https://cullen-molitor.github.io/</a><br />
+Jake Eisaguirre, UC Santa Barbara (<a href="mailto:eisaguirre@bren.ucsb.edu" class="email">eisaguirre@bren.ucsb.edu</a>) <a href="https://jake-eisaguirre.github.io/" class="uri">https://jake-eisaguirre.github.io/</a><br />
+Marie Rivers, UC Santa Barbara (<a href="mailto:mrivers@bren.ucsb.edu" class="email">mrivers@bren.ucsb.edu</a>) <a href="https://marierivers.github.io/" class="uri">https://marierivers.github.io/</a></p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<p><a href="#purpose">1. Purpose</a></p>
+<p><a href="#data_description">2. Dataset Description</a></p>
+<p><a href="#io">3. Dataset Input/Output</a></p>
+<p><a href="#metadata">4. Metadata</a></p>
+<p><a href="#visualize">5. Visualize Data</a></p>
+<p><a href="#usecases">6. Use Case Examples</a></p>
+<p><a href="#references">7. References</a></p>
+<p><a id='purpose'></a></p>
+<h3 id="notebook-purpose">Notebook Purpose</h3>
+<p>This notebook was created to provide an introduction to NetCDF4 files and data from the <a href="https://cdip.ucsd.edu/">Coastal Data Information Program (CDIP)</a> at the <a href="https://scripps.ucsd.edu/">Scripps Institute of Oceanography (SIO)</a>. This tutorial is based on a <a href="https://cdip.ucsd.edu/m/documents/data_access.html">python API</a> which loads netCDF files. We also provide methods for using sea surface temperature and swell height to compare correlations with El Nino/Southern Oscillation (ENSO) behavior at a specific location.</p>
+<p>While these methods are applicable to other <a href="https://cdip.ucsd.edu/m/deployment/station_view/">CDIP wave buoy stations</a>, we chose the <a href="http://cdip.ucsd.edu/themes/?d2=p9:s:71:st:1:m:mobile">Harvest Buoy (CDIP site)</a> to get information close to our local Santa Barbara, CA coast. The metadata is documented on the <a href="https://cdip.ucsd.edu/m/documents/intro.html#">CDIP informational site</a>.</p>
+<p>We are also interested to see how the El Niño Southern Oscillation (<a href="https://www.climate.gov/news-features/blogs/enso/what-el-ni%C3%B1o%E2%80%93southern-oscillation-enso-nutshell">ENSO</a>) effects our local waters in Santa Barbara California. To do this, we use the primary measurement of the strength of ENSO, the Oceanic Niño Index, which calculates a <a href="https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_change.shtml">monthly anomaly value</a> for <a href="https://www.ncdc.noaa.gov/teleconnections/enso/sst">region 3.4</a> in the equatorial pacific. Region 3.4 was chosen as it is the first zone to indicate ENSO and commonly used in ENSO research.</p>
+<div>
+<p><img src="harvest.png" width="300"/> <img src="buoy.png" width="300"/></p>
+</div>
+<p><a id='data_description'></a></p>
+<h3 id="buoy-dataset-description">Buoy Dataset Description</h3>
+<p><strong>File format:</strong> NetCDF<br />
+<strong>Data retrieval source:</strong> CDIP portal and CDIP Python API</p>
+<p><strong>Operator:</strong> CDIP<br />
+<strong>Collaborators:</strong> CleanSeas<br />
+<strong>Funding:</strong> California Division of Boating and Waterways (CDBW) &amp; US Army Corps of Engineer (USACE)</p>
+<p><strong>Data Availability:</strong> CDIP data and products are free available for public use<br />
+<strong>License:</strong> These data may be redistributed and used without restriction</p>
+<p><strong>Global coverage of stations:</strong><br />
+<img src="all_stations.png" alt="all_stations.png" /></p>
+<p><strong>Harvest buoy period of record:</strong> October 1991 - present</p>
+<h4 id="measured-wave-parameters">Measured wave parameters</h4>
+<p>Wave height is measured as the distance between the trough and the crest of a wave. Wave period measurements represent the time between two consecutive crests. Wave direction is the compass angle (0-360 degrees clockwise from true North) that the waves are coming from. Ocean waves never have just a single direction or period. Therefore, measurements of peak period (Tp) and peak direction (Dp) are reported. The peak period is the most common period between consecutive waves, and peak direction is the most common direction.</p>
+<ul>
+<li>Hs = wave height, 30-minute average of the ⅓ highest waves at a sensor</li>
+<li>Tp = peak period (most common period between consecutive waves)</li>
+<li>Dp = peak direction (most common direction)</li>
+</ul>
+<p>CDIP documentation notes that statistical estimates of wave parameters have been developed by analyzing time-series measurements of a natural sea state. For example, significant wave height was designed to correspond to wave height estimates from experienced observer and is reported as the mean of the largest 1/3 (33%) of waves recorded during a sampling period. Ocean conditions constantly change and significant wave heights are statistical measures rather than measures corresponding to any specific wave. A given sampling period will have many waves smaller than Hs and some larger than Hs. Statistically, the largest wave in a 1,000 wave sample is likely to be ~1.8 times the reported significant wave height.</p>
+<div>
+<p><img src="wave_measurements.png" width="500"/></p>
+</div>
+<h4 id="equipment">Equipment</h4>
+<p>CDIP uses Waverider (Mark III) directional buoys manufactured by Datawell that are equipped with accelerometers that measure wave height by recording the vertical acceleration of the buoy as it rises and falls with passing waves. Wave direction is recorded by horizontal accelerometers that measure north/south and east/west displacements. These buoys effectively measures waves with periods ranging from 1.6 to 30 seconds, with an error less than 3%. Temperature is measured by these buoys with a sensor is located approximately 18 inches below the watersurface. These buoys have a diameter of 0.9 meters. Available equipment documentation did not provide frequency of measurements.</p>
+<h4 id="temporal-notes">Temporal notes</h4>
+<ul>
+<li>Wave calcs use ~30 minute data samples</li>
+<li>Time assigned to the data is start time</li>
+<li>All data collected is archived by UTC time</li>
+</ul>
+<h4 id="data-quality">Data Quality</h4>
+<ul>
+<li>high quality publicly released data excludes all records flagged by quality control procedures</li>
+<li>activity log documents deployments, transmission problems, maintenance issues, and battery/power failures</li>
+</ul>
+<p><a id='io'></a></p>
+<h3 id="buoy-dataset-inputoutput">Buoy Dataset Input/Output</h3>
+<h4 id="import-required-packages">Import required packages</h4>
+<div>
+<p><im src="Documents/UCSB_Environmental_Data_Science/EDS_220_Remote_Sensing_and_Environmental_Data/220_group_project/mk-waves-tutorial/images/havest.png"/></p>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> netCDF4</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> calendar</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> gridspec</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> cm</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span></code></pre></div>
+<h4 id="set-parameters">Set parameters</h4>
+<ul>
+<li>names of any directories where data are stored</li>
+<li>ranges of years over which data are valid</li>
+<li>any thresholds or latitude/longitude ranges to be used later (e.g. dimensions of NINO3.4 region, threshold SSTA values for El Nino, etc.)</li>
+</ul>
+<p>The harvest buoy, CDIP station number of 071, was selected for our regional analysis of the Santa Barbara Coast.</p>
+<p><a href="https://cdip.ucsd.edu/m/deployment/station_view/">Link to other buoy stations</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>stn <span class="op">=</span> <span class="st">&#39;071&#39;</span></span></code></pre></div>
+<h4 id="read-in-the-data">Read in the data</h4>
+<p>we use the <code>netCDF4</code> module to read in the archived buoy data.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CDIP Archived Dataset URL</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data_url <span class="op">=</span> <span class="st">&#39;http://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/archive/&#39;</span> <span class="op">+</span> stn <span class="op">+</span> <span class="st">&#39;p1/&#39;</span> <span class="op">+</span> stn <span class="op">+</span> <span class="st">&#39;p1_historic.nc&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> netCDF4.Dataset(data_url)</span></code></pre></div>
+<p><a id='metadata'></a></p>
+<h3 id="metadata">Metadata</h3>
+<p>The CDIP metadata includes general information about the Harvest buoy such as current status, location, instrument description and most recent measurement values. The metadata also includes the availability of parameters for each month that the station has been in operation. The code below further explores metadata associated with this dataset</p>
+<p>The <code>type</code> function in Python was used to display the file type of the data</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return the file type</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(data)</span></code></pre></div>
+<pre><code>netCDF4._netCDF4.Dataset</code></pre>
+<p>The <code>summary</code> Python function was used to display summary text of the data</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return a summary of the dataset</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data.summary</span></code></pre></div>
+<pre><code>&#39;Directional wave and sea surface temperature measurements collected in situ by Datawell Waverider buoys located near HARVEST, CA from 1991/10/22 to 2019/06/17. This dataset includes publicly-released data only, excluding all records flagged bad by quality control procedures. A total of 372110 wave samples were analyzed for this area, where the water depth is approximately 183 to 549 meters.&#39;</code></pre>
+<p>The command <code>.variables.keys()</code> was used to return all variables included in the dataset.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return all variables included in the dataset</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data.variables.keys())</span></code></pre></div>
+<pre><code>dict_keys([&#39;sourceFilename&#39;, &#39;waveTime&#39;, &#39;waveTimeBounds&#39;, &#39;waveFlagPrimary&#39;, &#39;waveFlagSecondary&#39;, &#39;waveHs&#39;, &#39;waveTp&#39;, &#39;waveTa&#39;, &#39;waveDp&#39;, &#39;wavePeakPSD&#39;, &#39;waveTz&#39;, &#39;waveSourceIndex&#39;, &#39;waveFrequency&#39;, &#39;waveFrequencyBounds&#39;, &#39;waveFrequencyFlagPrimary&#39;, &#39;waveFrequencyFlagSecondary&#39;, &#39;waveBandwidth&#39;, &#39;sstTime&#39;, &#39;sstTimeBounds&#39;, &#39;sstFlagPrimary&#39;, &#39;sstFlagSecondary&#39;, &#39;sstSeaSurfaceTemperature&#39;, &#39;sstSourceIndex&#39;, &#39;sstReferenceTemp&#39;, &#39;gpsTime&#39;, &#39;gpsTimeBounds&#39;, &#39;gpsStatusFlags&#39;, &#39;gpsLatitude&#39;, &#39;gpsLongitude&#39;, &#39;gpsSourceIndex&#39;, &#39;dwrTime&#39;, &#39;dwrTimeBounds&#39;, &#39;dwrSourceIndex&#39;, &#39;dwrBatteryLevel&#39;, &#39;dwrZAccelerometerOffset&#39;, &#39;dwrXAccelerometerOffset&#39;, &#39;dwrYAccelerometerOffset&#39;, &#39;dwrOrientation&#39;, &#39;dwrInclination&#39;, &#39;dwrBatteryWeeksOfLife&#39;, &#39;metaDeployLatitude&#39;, &#39;metaDeployLongitude&#39;, &#39;metaWaterDepth&#39;, &#39;metaDeclination&#39;, &#39;metaStationName&#39;, &#39;metaStationLatitude&#39;, &#39;metaStationLongitude&#39;, &#39;metaPlatform&#39;, &#39;metaInstrumentation&#39;, &#39;metaGridMapping&#39;, &#39;waveEnergyDensity&#39;, &#39;waveMeanDirection&#39;, &#39;waveA1Value&#39;, &#39;waveB1Value&#39;, &#39;waveA2Value&#39;, &#39;waveB2Value&#39;, &#39;waveCheckFactor&#39;, &#39;waveSpread&#39;, &#39;waveM2Value&#39;, &#39;waveN2Value&#39;])</code></pre>
+<p>The Harvest buoy collects data in the following categories:</p>
+<ul>
+<li>Significant Wave Height<br />
+</li>
+<li>Swell Height</li>
+<li>Swell Period</li>
+<li>Swell Direction</li>
+<li>Wind Wave Height</li>
+<li>Wind Wave Period</li>
+<li>Wind Wave Direction</li>
+<li>Wave Steepness</li>
+<li>Average Wave Period</li>
+<li>Water Temperature</li>
+</ul>
+<p>For this tutorial we are interested in:</p>
+<ul>
+<li>Significant Wave Height (<code>waveHs</code>)</li>
+<li>Sea Surface Temperature (<code>sstSeaSurfaceTemperature</code>)</li>
+</ul>
+<p>By using a print statement with the dataframe name and variable in brackets, you can view the long name, units, minimum values, and maximum values of a variable</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># learn more about a variable including long name, units, valid min/max values</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data[<span class="st">&#39;sstSeaSurfaceTemperature&#39;</span>])</span></code></pre></div>
+<pre><code>&lt;class &#39;netCDF4._netCDF4.Variable&#39;&gt;
+float32 sstSeaSurfaceTemperature(sstTime)
+    long_name: sea surface temperature
+    units: Celsius
+    _FillValue: -999.99
+    standard_name: sea_surface_temperature
+    coordinates: metaStationLatitude metaStationLongitude
+    grid_mapping: metaGridMapping
+    valid_min: -5.0
+    valid_max: 46.15
+    ancillary_variables: sstFlagPrimary sstFlagSecondary
+    ncei_name: SEA SURFACE TEMPERATURE
+    cell_methods: sstTime: point
+unlimited dimensions: 
+current shape = (372015,)
+filling off</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Other Variables</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data.variables</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Hs = data.variables[&#39;waveHs&#39;]</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tp = data.variables[&#39;waveTp&#39;]</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Dp = data.variables[&#39;waveDp&#39;] </span></span></code></pre></div>
+<h4 id="clean-data">Clean data</h4>
+<p>Thanks to the data processing methods used by CDIP, the downloaded datafiles did not require much actual cleaning. Since the sea surface temperature and wave height variables had different timestamps associated with each measurements we pulled out these variables for use in creating new dataframes that were used as an intermediate step in our overall analysis</p>
+<p><a href="http://cdip.ucsd.edu/themes/?zoom=auto&amp;tz=UTC&amp;ll_fmt=dm&amp;numcolorbands=100&amp;palette=cdip_classic&amp;high=4.572&amp;r=7&amp;un=1&amp;pb=1&amp;d2=p70&amp;u2=s:071:st:1:v:product_descriptions">Example code found here</a></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get SST timestamp variable </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sst_time_var <span class="op">=</span> data.variables[<span class="st">&#39;sstTime&#39;</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get SST variable </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>sst <span class="op">=</span> data.variables[<span class="st">&#39;sstSeaSurfaceTemperature&#39;</span>][:]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get wave height timestamp variable</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>wave_time_var <span class="op">=</span> data.variables[<span class="st">&#39;waveTime&#39;</span>]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Get wave height variable </span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>wave <span class="op">=</span> data.variables[<span class="st">&#39;waveHs&#39;</span>][:]</span></code></pre></div>
+<p>We used the cftime Python library for decoding time units and variable values in a netCDF file conforming to the Climate and Forecasting (CF) netCDF conventions.</p>
+<p><a href="https://unidata.github.io/cftime/">cftime documentation</a></p>
+<p>First we created dataframes for the sea surface temperature <code>sst_df</code> and wave height <code>wave_df</code> data. We then aggregated this data by month and joined the dataframes to create one dataframe of buoy variables.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use num2date on sst_time_var</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sst_time <span class="op">=</span> netCDF4.num2date(sst_time_var[:], sst_time_var.units, only_use_cftime_datetimes<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make an empty pandas dataframe</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sst_df <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill it with SST and the date time it was collected</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sst_df[<span class="st">&#39;sst&#39;</span>] <span class="op">=</span> sst</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>sst_df[<span class="st">&#39;date_time&#39;</span>] <span class="op">=</span> sst_time</span></code></pre></div>
+<p>The code below creates columns for the date, month, and year of each observation timestamp. These values will later be used to calculate monthly means.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make date_time column a pandas date_time</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sst_df[<span class="st">&#39;date_time&#39;</span>] <span class="op">=</span> pd.to_datetime(sst_df[<span class="st">&#39;date_time&#39;</span>]) </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out date from datetime</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>sst_df[<span class="st">&#39;date&#39;</span>] <span class="op">=</span> sst_df[<span class="st">&#39;date_time&#39;</span>].dt.date</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out month from datetime</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>sst_df[<span class="st">&#39;month&#39;</span>] <span class="op">=</span> sst_df[<span class="st">&#39;date_time&#39;</span>].dt.month</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out year from datetime</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>sst_df[<span class="st">&#39;year&#39;</span>] <span class="op">=</span> sst_df[<span class="st">&#39;date_time&#39;</span>].dt.year</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use num2date on wave_time_var</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>wave_time <span class="op">=</span> netCDF4.num2date(wave_time_var[:], wave_time_var.units, only_use_cftime_datetimes<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make an empty pandas dataframe</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>wave_df <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill it with SST and the date time it was collected</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">&#39;wave&#39;</span>] <span class="op">=</span> wave</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">&#39;date_time&#39;</span>] <span class="op">=</span> wave_time</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make date_time column a pandas date_time</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">&#39;date_time&#39;</span>] <span class="op">=</span> pd.to_datetime(wave_df[<span class="st">&#39;date_time&#39;</span>]) </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out date from datetime</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">&#39;date&#39;</span>] <span class="op">=</span> wave_df[<span class="st">&#39;date_time&#39;</span>].dt.date</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out month from datetime</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">&#39;month&#39;</span>] <span class="op">=</span> wave_df[<span class="st">&#39;date_time&#39;</span>].dt.month</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out year from datetime</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">&#39;year&#39;</span>] <span class="op">=</span> wave_df[<span class="st">&#39;date_time&#39;</span>].dt.year</span></code></pre></div>
+<p>The next two code chunks let you view the newly created sea surface temperature and wave height dataframes</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect data</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sst_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+sst
+</th>
+<th>
+date_time
+</th>
+<th>
+date
+</th>
+<th>
+month
+</th>
+<th>
+year
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+16.00
+</td>
+<td>
+1991-10-22 08:21:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+16.00
+</td>
+<td>
+1991-10-22 08:51:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+15.90
+</td>
+<td>
+1991-10-22 09:21:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+15.90
+</td>
+<td>
+1991-10-22 09:51:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+15.85
+</td>
+<td>
+1991-10-22 10:21:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>wave_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+wave
+</th>
+<th>
+date_time
+</th>
+<th>
+date
+</th>
+<th>
+month
+</th>
+<th>
+year
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1.50
+</td>
+<td>
+1991-10-22 07:52:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1.48
+</td>
+<td>
+1991-10-22 08:22:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+1.54
+</td>
+<td>
+1991-10-22 08:52:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+1.56
+</td>
+<td>
+1991-10-22 09:22:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+1.59
+</td>
+<td>
+1991-10-22 09:52:00
+</td>
+<td>
+1991-10-22
+</td>
+<td>
+10
+</td>
+<td>
+1991
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="enso-dataset">ENSO Dataset</h3>
+<p>El Nino/Southern Oscillation (ENSO) data was obtained from the National Oceanic and Atmospheric Administration (NOAA) Climate Prediction Center. The code below goes through the steps to download and visualize this data then manipulate it to use in conjunction with the buoy dataset. We used Nino Region 3.4 for our analysis.</p>
+<h4 id="read-in-enso-data">Read in <a href="https://www.cpc.ncep.noaa.gov/data/indices/ersst5.nino.mth.91-20.ascii">ENSO</a> data</h4>
+<p><a href="https://psl.noaa.gov/data/gridded/data.noaa.ersst.v5.html">ERSST5</a> Extended Reconstructed Sea Surface Temperature (SST) V5<br />
+<a href="https://www.ncdc.noaa.gov/teleconnections/enso/sst">Nino Regions</a></p>
+<div>
+<p><img src="nino-regions.gif" width="500"/></p>
+</div>
+<p>We use <code>sep = '\s{2,}'</code> because the data linked above is seperated by two or more spaces, not a comma or other typical delimiter.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">&quot;https://www.cpc.ncep.noaa.gov/data/indices/ersst5.nino.mth.91-20.ascii&quot;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>enso <span class="op">=</span> pd.read_csv(path, sep <span class="op">=</span> <span class="st">&#39;\s{2,}&#39;</span>, engine <span class="op">=</span> <span class="st">&#39;python&#39;</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>enso.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+YR
+</th>
+<th>
+MON
+</th>
+<th>
+NINO1+2
+</th>
+<th>
+ANOM
+</th>
+<th>
+NINO3
+</th>
+<th>
+ANOM.1
+</th>
+<th>
+NINO4
+</th>
+<th>
+ANOM.2
+</th>
+<th>
+NINO3.4
+</th>
+<th>
+ANOM.3
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1950
+</td>
+<td>
+1
+</td>
+<td>
+23.01
+</td>
+<td>
+-1.55
+</td>
+<td>
+23.56
+</td>
+<td>
+-2.10
+</td>
+<td>
+26.94
+</td>
+<td>
+-1.38
+</td>
+<td>
+24.55
+</td>
+<td>
+-1.99
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1950
+</td>
+<td>
+2
+</td>
+<td>
+24.32
+</td>
+<td>
+-1.78
+</td>
+<td>
+24.89
+</td>
+<td>
+-1.52
+</td>
+<td>
+26.67
+</td>
+<td>
+-1.53
+</td>
+<td>
+25.06
+</td>
+<td>
+-1.69
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+1950
+</td>
+<td>
+3
+</td>
+<td>
+25.11
+</td>
+<td>
+-1.38
+</td>
+<td>
+26.36
+</td>
+<td>
+-0.84
+</td>
+<td>
+26.52
+</td>
+<td>
+-1.80
+</td>
+<td>
+25.87
+</td>
+<td>
+-1.42
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+1950
+</td>
+<td>
+4
+</td>
+<td>
+23.63
+</td>
+<td>
+-1.90
+</td>
+<td>
+26.44
+</td>
+<td>
+-1.14
+</td>
+<td>
+26.90
+</td>
+<td>
+-1.73
+</td>
+<td>
+26.28
+</td>
+<td>
+-1.54
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+1950
+</td>
+<td>
+5
+</td>
+<td>
+22.68
+</td>
+<td>
+-1.74
+</td>
+<td>
+25.69
+</td>
+<td>
+-1.57
+</td>
+<td>
+27.73
+</td>
+<td>
+-1.18
+</td>
+<td>
+26.18
+</td>
+<td>
+-1.75
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop unused columns from ENSO data</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>enso <span class="op">=</span> enso.drop(enso.columns[[<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>]], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># rename columns</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>enso <span class="op">=</span> enso.rename(columns<span class="op">=</span>{<span class="st">&quot;YR&quot;</span>:<span class="st">&quot;year&quot;</span>, <span class="st">&quot;MON&quot;</span>:<span class="st">&quot;month&quot;</span>, <span class="st">&quot;ANOM.3&quot;</span>: <span class="st">&quot;enso_anom&quot;</span>})</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>enso.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+year
+</th>
+<th>
+month
+</th>
+<th>
+enso_anom
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1950
+</td>
+<td>
+1
+</td>
+<td>
+-1.99
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1950
+</td>
+<td>
+2
+</td>
+<td>
+-1.69
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+1950
+</td>
+<td>
+3
+</td>
+<td>
+-1.42
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+1950
+</td>
+<td>
+4
+</td>
+<td>
+-1.54
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+1950
+</td>
+<td>
+5
+</td>
+<td>
+-1.75
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a id='visualize'></a></p>
+<h3 id="visualize-data">Visualize data</h3>
+<h4 id="harvet-buoy-visualization">Harvet buoy visualization</h4>
+<p>We started by visualizing the full dataset to inform our further analysis. Based on the data gaps shown in the plot, we decided to begin our analysis at 1997.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot here to see what the data looks like</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>f, (pHs, pSst) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>)) </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>pSst.plot(sst_df.date, sst_df.sst, linewidth <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>pHs.plot(wave_df.date, wave_df.wave, linewidth <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&quot;Harvest Buoy&quot;</span>, fontsize<span class="op">=</span><span class="dv">30</span>, y <span class="op">=</span> <span class="fl">2.3</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>pHs.set_ylabel(<span class="st">&#39;Wave Height, m&#39;</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>pSst.set_ylabel(<span class="st">&#39;SST, C&#39;</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span></code></pre></div>
+<pre><code>Text(0, 0.5, &#39;SST, C&#39;)</code></pre>
+<figure>
+<img src="output_47_1.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<h4 id="enso-anomaly-visualization">ENSO anomaly visualization</h4>
+<p>The below plot shows the Oceanic Nino Index anaomaly vvalues from 1950 to the most current available data. The area under/over the curve to the x-axis is colored by the intensity of the anomaly. Anomaly values over 0.5°C for 5 consecutive 3 month seasonal averages are considered to be El Niño. Anomaly values under -0.5°C for 5 consecutive 3 month seasonal averages are considered to be La Niña.</p>
+<p>Next we <code>assign()</code> an arbitrary day value of 1 in order to make a date with <code>pd.to_datetime()</code> function</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>enso <span class="op">=</span> enso.assign(day <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>enso[<span class="st">&#39;date&#39;</span>] <span class="op">=</span> pd.to_datetime(enso[[<span class="st">&#39;year&#39;</span>, <span class="st">&#39;month&#39;</span>, <span class="st">&#39;day&#39;</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose color gradient here: https://matplotlib.org/stable/tutorials/colors/colormaps.html </span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>colourmap <span class="op">=</span> cm.get_cmap(<span class="st">&#39;magma&#39;</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>xx <span class="op">=</span> enso.date</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>yy <span class="op">=</span>  enso.enso_anom</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">15</span>, <span class="dv">5</span>))</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>plt.plot(xx,yy, color <span class="op">=</span> <span class="st">&#39;none&#39;</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>normalize <span class="op">=</span> mpl.colors.Normalize(vmin<span class="op">=</span>yy.<span class="bu">min</span>(), vmax<span class="op">=</span>yy.<span class="bu">max</span>())</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>npts <span class="op">=</span> <span class="bu">len</span>(enso)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(npts <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    plt.fill_between([xx[i], xx[i<span class="op">+</span><span class="dv">1</span>]],</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                     [yy[i], yy[i<span class="op">+</span><span class="dv">1</span>]],</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                     color<span class="op">=</span>colourmap(normalize(yy[i]))</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>                     ,alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<figure>
+<img src="output_51_0.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<p><a id='usecases'></a></p>
+<h3 id="use-cases-examples">Use Cases Examples</h3>
+<p><strong>Observational Data vs Modeled Data</strong></p>
+<p>The CDIP buoy network is a valuable resource for marine scientists, coastal managers, and mariners. The <strong>historic data</strong> (observational) is archived and is of great use for understanding past patterns and provides context for understanding the oceanographic conditions of our local ocean. <strong>Real time data</strong> (observational) gives an better idea of what to expect as wave energy moves past the buoy and towards our shoreline. It is also incredibly useful for mariners navigating these sometimes harsh and volatile waters. Forecasted data (modeled) is perhaps the most practical use case for mariners, as they not only need to know the current conditions but they need to know how those conditions are changing in order to navigate safely.</p>
+<p>CDIP provide what they call <a href="https://cdip.ucsd.edu/m/documents/models.html#about-the-cdip-wave-forecast-model">‘nowcasted’ data and ‘forecasted’ data</a>. - Nowcasted provides insight at a higher resolution for the upcoming 6-hour period. These predictions tend to be more accurate and are generally fairly trustworthy. - Forecasted data provide a look further into the future, but with a greater amount of uncertainty</p>
+<p><strong>Our interest</strong></p>
+<p>We are interested in investigating the effect of El Niño on our local oceanographic conditions. We used linear regression models to plot and compare equatorial sea surface temperature anomalies with local Santa Barbara temperature and wave height. Typically temperature anomalies are calculated from a 30 year base period. Since we only had ~20 years of consistent data, we calculated monthly means since 1997 and used these as base values from which to compare monthly means for each year. The results of this analysis are useful to scientist, marine managers, marine conservation groups and coastal communities.</p>
+<p><strong>Other General Use Cases</strong></p>
+<ul>
+<li>Modeling coastal erosion</li>
+<li>Investigating storm frequency and intensity over time</li>
+<li>Investigating changes in SST over time</li>
+<li>Detecting upwelling events</li>
+</ul>
+<p>The code chunks below take the sea surface temperature and wave height dataframes created from the buoy data and group values by month and year so that monthly averages can be calculated. The two datasets are then grouped into a single buoy dataframe, <code>buoy_df</code>.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter data to be greater than 1997 due to missing values before that time</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>sst_df <span class="op">=</span> sst_df[sst_df[<span class="st">&#39;year&#39;</span>] <span class="op">&gt;</span> <span class="dv">1997</span>]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>wave_df <span class="op">=</span> wave_df[wave_df[<span class="st">&#39;year&#39;</span>] <span class="op">&gt;</span> <span class="dv">1997</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by date and summarise with mean SST and Wave Height</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>sst_monthly <span class="op">=</span> sst_df.groupby([<span class="st">&#39;month&#39;</span>, <span class="st">&#39;year&#39;</span>]).agg({<span class="st">&#39;sst&#39;</span>: <span class="st">&#39;mean&#39;</span>})</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>wave_monthly <span class="op">=</span> wave_df.groupby([<span class="st">&#39;month&#39;</span>, <span class="st">&#39;year&#39;</span>]).agg({<span class="st">&#39;wave&#39;</span>: <span class="st">&#39;mean&#39;</span>})</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect Data</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sst_monthly.head())</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wave_monthly.head())</span></code></pre></div>
+<pre><code>                  sst
+month year           
+1     1999  13.194914
+      2000  13.023686
+      2001  13.454234
+      2002  12.896236
+      2003  14.313378
+                wave
+month year          
+1     1999  2.467315
+      2000  2.126410
+      2001  2.971848
+      2002  2.609128
+      2003  2.432630</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join monthly sst and wave data into a buoy dataframe</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> sst_monthly.join(wave_monthly)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>buoy_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+</th>
+<th>
+sst
+</th>
+<th>
+wave
+</th>
+</tr>
+<tr>
+<th>
+month
+</th>
+<th>
+year
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="5" valign="top">
+1
+</th>
+<th>
+1999
+</th>
+<td>
+13.194914
+</td>
+<td>
+2.467315
+</td>
+</tr>
+<tr>
+<th>
+2000
+</th>
+<td>
+13.023686
+</td>
+<td>
+2.126410
+</td>
+</tr>
+<tr>
+<th>
+2001
+</th>
+<td>
+13.454234
+</td>
+<td>
+2.971848
+</td>
+</tr>
+<tr>
+<th>
+2002
+</th>
+<td>
+12.896236
+</td>
+<td>
+2.609128
+</td>
+</tr>
+<tr>
+<th>
+2003
+</th>
+<td>
+14.313378
+</td>
+<td>
+2.432630
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Next we used <code>reset_index</code> to ungroup the buoy data</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.reset_index()</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>buoy_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+month
+</th>
+<th>
+year
+</th>
+<th>
+sst
+</th>
+<th>
+wave
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+1999
+</td>
+<td>
+13.194914
+</td>
+<td>
+2.467315
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1
+</td>
+<td>
+2000
+</td>
+<td>
+13.023686
+</td>
+<td>
+2.126410
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+1
+</td>
+<td>
+2001
+</td>
+<td>
+13.454234
+</td>
+<td>
+2.971848
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+1
+</td>
+<td>
+2002
+</td>
+<td>
+12.896236
+</td>
+<td>
+2.609128
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+1
+</td>
+<td>
+2003
+</td>
+<td>
+14.313378
+</td>
+<td>
+2.432630
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here we calculate anomalies for buoy sea surface temperature and wave height values.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the anomalies</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.groupby([<span class="st">&#39;month&#39;</span>, <span class="st">&#39;year&#39;</span>]).agg({<span class="st">&#39;sst&#39;</span>: <span class="st">&#39;mean&#39;</span>, <span class="st">&#39;wave&#39;</span>: <span class="st">&#39;mean&#39;</span>}) <span class="op">-</span> <span class="op">\</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    buoy_df.groupby([<span class="st">&#39;month&#39;</span>]).agg({<span class="st">&#39;sst&#39;</span>: <span class="st">&#39;mean&#39;</span>, <span class="st">&#39;wave&#39;</span>: <span class="st">&#39;mean&#39;</span>}) </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>buoy_df.head()</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># since this line of code was so long, use used a `\` to break up the line. You can also split up lines at commas</span></span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+</th>
+<th>
+sst
+</th>
+<th>
+wave
+</th>
+</tr>
+<tr>
+<th>
+month
+</th>
+<th>
+year
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="5" valign="top">
+1
+</th>
+<th>
+1999
+</th>
+<td>
+-0.458099
+</td>
+<td>
+-0.088380
+</td>
+</tr>
+<tr>
+<th>
+2000
+</th>
+<td>
+-0.629327
+</td>
+<td>
+-0.429286
+</td>
+</tr>
+<tr>
+<th>
+2001
+</th>
+<td>
+-0.198779
+</td>
+<td>
+0.416153
+</td>
+</tr>
+<tr>
+<th>
+2002
+</th>
+<td>
+-0.756777
+</td>
+<td>
+0.053433
+</td>
+</tr>
+<tr>
+<th>
+2003
+</th>
+<td>
+0.660365
+</td>
+<td>
+-0.123065
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Note: You need to reset the index each time you group the data</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.reset_index()</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>buoy_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+month
+</th>
+<th>
+year
+</th>
+<th>
+sst
+</th>
+<th>
+wave
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+1999
+</td>
+<td>
+-0.458099
+</td>
+<td>
+-0.088380
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1
+</td>
+<td>
+2000
+</td>
+<td>
+-0.629327
+</td>
+<td>
+-0.429286
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+1
+</td>
+<td>
+2001
+</td>
+<td>
+-0.198779
+</td>
+<td>
+0.416153
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+1
+</td>
+<td>
+2002
+</td>
+<td>
+-0.756777
+</td>
+<td>
+0.053433
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+1
+</td>
+<td>
+2003
+</td>
+<td>
+0.660365
+</td>
+<td>
+-0.123065
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rename columns</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.rename(columns <span class="op">=</span> {<span class="st">&#39;sst&#39;</span>:<span class="st">&#39;buoy_sst_anom&#39;</span>, <span class="st">&#39;wave&#39;</span>:<span class="st">&#39;buoy_wave_anom&#39;</span>})</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign arbitrary day value</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.assign(day <span class="op">=</span> <span class="dv">1</span>) </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># set datetime </span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>buoy_df[<span class="st">&#39;date&#39;</span>] <span class="op">=</span> pd.to_datetime(buoy_df[[<span class="st">&#39;year&#39;</span>, <span class="st">&#39;month&#39;</span>, <span class="st">&#39;day&#39;</span>]])</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># sort values</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.sort_values(by<span class="op">=</span>[<span class="st">&#39;date&#39;</span>])</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co"># set the index for plotting</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.set_index(<span class="st">&#39;date&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>buoy_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+month
+</th>
+<th>
+year
+</th>
+<th>
+buoy_sst_anom
+</th>
+<th>
+buoy_wave_anom
+</th>
+<th>
+day
+</th>
+</tr>
+<tr>
+<th>
+date
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+1998-03-01
+</th>
+<td>
+3
+</td>
+<td>
+1998
+</td>
+<td>
+1.834283
+</td>
+<td>
+0.105816
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1998-04-01
+</th>
+<td>
+4
+</td>
+<td>
+1998
+</td>
+<td>
+0.914924
+</td>
+<td>
+-0.130027
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1998-05-01
+</th>
+<td>
+5
+</td>
+<td>
+1998
+</td>
+<td>
+0.674051
+</td>
+<td>
+-0.090042
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1998-06-01
+</th>
+<td>
+6
+</td>
+<td>
+1998
+</td>
+<td>
+0.614153
+</td>
+<td>
+-0.300137
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1998-07-01
+</th>
+<td>
+7
+</td>
+<td>
+1998
+</td>
+<td>
+1.214789
+</td>
+<td>
+0.132242
+</td>
+<td>
+1
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Joining enso and buoy data:</strong> Here we join the buoy dataframe and ENSO dataframe by <code>date</code> and create a basic plot of each anomaly.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.drop([<span class="st">&quot;month&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;day&quot;</span>], axis<span class="op">=</span><span class="dv">1</span>).reset_index()</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>enso <span class="op">=</span> enso.drop([<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>anom_df <span class="op">=</span> buoy_df.set_index(<span class="st">&#39;date&#39;</span>).join(enso.set_index(<span class="st">&#39;date&#39;</span>)).reset_index()</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot sst and wave height anomaly from buoy along with ENSO sst anomaly</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>f, (bwa, bsa, esa ) <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>))</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>bwa.plot(anom_df.date, anom_df.buoy_wave_anom)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>bwa.fill_between(anom_df.date, anom_df.buoy_wave_anom, <span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.30</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>bwa.axhline(<span class="dv">0</span>,color<span class="op">=</span><span class="st">&#39;red&#39;</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>bwa.set_ylabel(<span class="st">&#39;Buoy Wave Height Anomaly&#39;</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>bsa.plot(anom_df.date, anom_df.buoy_sst_anom)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>bsa.fill_between(anom_df.date, anom_df.buoy_sst_anom,  <span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.30</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>bsa.axhline(<span class="dv">0</span>,color<span class="op">=</span><span class="st">&#39;red&#39;</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>bsa.set_ylabel(<span class="st">&#39;Buoy SST Anomaly&#39;</span>)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>esa.plot(anom_df.date, anom_df.enso_anom)</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>esa.fill_between(anom_df.date, anom_df.enso_anom,  <span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.30</span>)</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>esa.axhline(<span class="dv">0</span>,color<span class="op">=</span><span class="st">&#39;red&#39;</span>)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>esa.set_ylabel(<span class="st">&#39;ENSO Anomaly&#39;</span>)</span></code></pre></div>
+<pre><code>Text(0, 0.5, &#39;ENSO Anomaly&#39;)</code></pre>
+<figure>
+<img src="output_70_1.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<h4 id="model">Model</h4>
+<p>We used the <code>statsmodels</code> package to develop linear regression models of the anomaly dataframes created in the sections above. We modeled anomalies for buoy sea surface temperature vs. ENSO sea surface temperature, buoy wave height vs. ENSO sea surface temperature, and buoy wave height vs. buoy sea surface temperature.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span></code></pre></div>
+<p><strong>Buoy sea surface tempurature anomaly vs. ENSO sea surface temperature anomaly</strong></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple linear model: buoy sst anomaly vs enso sst anomaly</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(anom_df.buoy_sst_anom, anom_df.enso_anom)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model results</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model.fit()</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Model summary</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results.summary())</span></code></pre></div>
+<pre><code>                                 OLS Regression Results                                
+=======================================================================================
+Dep. Variable:          buoy_sst_anom   R-squared (uncentered):                   0.282
+Model:                            OLS   Adj. R-squared (uncentered):              0.279
+Method:                 Least Squares   F-statistic:                              98.58
+Date:                Tue, 07 Dec 2021   Prob (F-statistic):                    8.24e-20
+Time:                        18:09:44   Log-Likelihood:                         -312.83
+No. Observations:                 252   AIC:                                      627.7
+Df Residuals:                     251   BIC:                                      631.2
+Df Model:                           1                                                  
+Covariance Type:            nonrobust                                                  
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+enso_anom      0.5964      0.060      9.929      0.000       0.478       0.715
+==============================================================================
+Omnibus:                       11.182   Durbin-Watson:                   0.808
+Prob(Omnibus):                  0.004   Jarque-Bera (JB):               12.718
+Skew:                           0.402   Prob(JB):                      0.00173
+Kurtosis:                       3.751   Cond. No.                         1.00
+==============================================================================
+
+Notes:
+[1] R² is computed without centering (uncentered) since the model does not contain a constant.
+[2] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
+<p><strong>Buoy wave height anomaly vs. ENSO sea surface temperature anomaly</strong></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple linear model: buoy wave anomaly vs enso sst anomaly</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(anom_df.buoy_wave_anom, anom_df.enso_anom)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model results</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model.fit()</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Model summary</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results.summary())</span></code></pre></div>
+<pre><code>                                 OLS Regression Results                                
+=======================================================================================
+Dep. Variable:         buoy_wave_anom   R-squared (uncentered):                   0.000
+Model:                            OLS   Adj. R-squared (uncentered):             -0.004
+Method:                 Least Squares   F-statistic:                           0.006389
+Date:                Tue, 07 Dec 2021   Prob (F-statistic):                       0.936
+Time:                        18:09:44   Log-Likelihood:                         -11.128
+No. Observations:                 252   AIC:                                      24.26
+Df Residuals:                     251   BIC:                                      27.79
+Df Model:                           1                                                  
+Covariance Type:            nonrobust                                                  
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+enso_anom      0.0015      0.018      0.080      0.936      -0.034       0.037
+==============================================================================
+Omnibus:                        1.416   Durbin-Watson:                   1.619
+Prob(Omnibus):                  0.493   Jarque-Bera (JB):                1.162
+Skew:                           0.011   Prob(JB):                        0.559
+Kurtosis:                       3.332   Cond. No.                         1.00
+==============================================================================
+
+Notes:
+[1] R² is computed without centering (uncentered) since the model does not contain a constant.
+[2] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
+<p><strong>Buoy wave height anomaly vs. buoy sea surface temperature anomaly</strong></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple linear model: buoy wave anomaly vs buoy sst anomaly</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(anom_df.buoy_wave_anom, anom_df.buoy_sst_anom)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model results</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model.fit()</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Model summary</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results.summary())</span></code></pre></div>
+<pre><code>                                 OLS Regression Results                                
+=======================================================================================
+Dep. Variable:         buoy_wave_anom   R-squared (uncentered):                   0.035
+Model:                            OLS   Adj. R-squared (uncentered):              0.031
+Method:                 Least Squares   F-statistic:                              9.167
+Date:                Tue, 07 Dec 2021   Prob (F-statistic):                     0.00272
+Time:                        18:09:44   Log-Likelihood:                         -6.6118
+No. Observations:                 252   AIC:                                      15.22
+Df Residuals:                     251   BIC:                                      18.75
+Df Model:                           1                                                  
+Covariance Type:            nonrobust                                                  
+=================================================================================
+                    coef    std err          t      P&gt;|t|      [0.025      0.975]
+---------------------------------------------------------------------------------
+buoy_sst_anom    -0.0480      0.016     -3.028      0.003      -0.079      -0.017
+==============================================================================
+Omnibus:                        2.296   Durbin-Watson:                   1.645
+Prob(Omnibus):                  0.317   Jarque-Bera (JB):                2.133
+Skew:                           0.093   Prob(JB):                        0.344
+Kurtosis:                       3.410   Cond. No.                         1.00
+==============================================================================
+
+Notes:
+[1] R² is computed without centering (uncentered) since the model does not contain a constant.
+[2] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
+<p><strong>Visualize model results</strong></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>m, b <span class="op">=</span> np.polyfit(anom_df.enso_anom, anom_df.buoy_sst_anom, <span class="dv">1</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(anom_df.enso_anom, anom_df.buoy_sst_anom)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>plt.plot(anom_df.enso_anom, m <span class="op">*</span> anom_df.enso_anom <span class="op">+</span> b, color <span class="op">=</span> <span class="st">&#39;red&#39;</span>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Buoy SST Anomaly ~ ENSO SST Anomaly&#39;</span>)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Buoy SST Anomaly&#39;</span>)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;ENSO SST Anomaly&#39;</span>)</span></code></pre></div>
+<pre><code>Text(0.5, 0, &#39;ENSO SST Anomaly&#39;)</code></pre>
+<figure>
+<img src="output_81_1.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>m, b <span class="op">=</span> np.polyfit(anom_df.enso_anom, anom_df.buoy_wave_anom, <span class="dv">1</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(anom_df.enso_anom, anom_df.buoy_wave_anom)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>plt.plot(anom_df.enso_anom, m <span class="op">*</span> anom_df.enso_anom <span class="op">+</span> b, color <span class="op">=</span> <span class="st">&#39;red&#39;</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Buoy Wave Anomaly ~ ENSO SST Anomaly&#39;</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Buoy Wave Anomaly&#39;</span>)</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;ENSO SST Anomaly&#39;</span>)</span></code></pre></div>
+<pre><code>Text(0.5, 0, &#39;ENSO SST Anomaly&#39;)</code></pre>
+<figure>
+<img src="output_82_1.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>m, b <span class="op">=</span> np.polyfit(anom_df.buoy_sst_anom, anom_df.buoy_wave_anom, <span class="dv">1</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(anom_df.buoy_sst_anom, anom_df.buoy_wave_anom)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>plt.plot(anom_df.buoy_sst_anom, m <span class="op">*</span> anom_df.buoy_sst_anom <span class="op">+</span> b, color <span class="op">=</span> <span class="st">&#39;red&#39;</span>)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Buoy Wave Anomaly ~ Buoy SST Anomaly&#39;</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Buoy Wave Anomaly&#39;</span>)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Buoy SST Anomaly&#39;</span>)</span></code></pre></div>
+<pre><code>Text(0.5, 0, &#39;Buoy SST Anomaly&#39;)</code></pre>
+<figure>
+<img src="output_83_1.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<h4 id="results">Results</h4>
+<p>Our model shows a positive correlation between ENSO sea surface temperature anomaly and Santa Barbara sea surface temperature anomaly. The model output indicates that this correlation is statistically significant based on the p-value, but the low <span class="math inline">\(R^2\)</span> value of 0.282 estimates that temperature near the equator only accounts for approximately 28% of the variability in sea surface temperature near Santa Barbara.Buoy height wave anomaly only has a slight positive correlation with ENSO sea surface temperature anomaly, but these results were not statistically significant due to a p-value &gt; 0.05. The model for buoy wave height vs. buoy sea surface temperature was statistically significant (p-value &lt; 0.05, but based on the <span class="math inline">\(R^2\)</span> value, buoy sea surface temperature anomaly accounts for only 3.5% of the variability observed in wave height..</p>
+<h4 id="future-work">Future Work</h4>
+<p>Further analyses with these datasets could look at correlations on a larger spatial scale by comparing results for other buoy stations closer to and further from the equator than Santa Barbara. The CDIP datasets can also be used to model the effect of ENSO on wave direction.</p>
+<p><a id='references'></a></p>
+<h3 id="references">References</h3>
+<p>References used to create this tutorial include:</p>
+<ol type="1">
+<li>Coastal Data Information Program (CDIP): <a href="https://cdip.ucsd.edu/" class="uri">https://cdip.ucsd.edu/</a></li>
+<li>Coastal Data Information Program (CDIP) data access documentation: <a href="https://cdip.ucsd.edu/m/documents/data_access.html" class="uri">https://cdip.ucsd.edu/m/documents/data_access.html</a></li>
+<li>Harvest bouy, station 071: <a href="https://cdip.ucsd.edu/m/products/?stn=071p1" class="uri">https://cdip.ucsd.edu/m/products/?stn=071p1</a></li>
+</ol>
+<p><strong>Buoy Data citation:</strong> Data furnished by the Coastal Data Information Program (CDIP), Integrative Oceanography Division, operated by the Scripps Institution of Oceanography, under the sponsorship of the U.S. Army Corps of Engineers and the California Department of Parks and Recreation</p>
+<p><strong>ENSO Data citation:</strong> Data made publicly available by the National Weather Service’s Climate Prediction Center. The data used: Monthly ERSSTv5 (1991-2020 base period) Niño 3.4 (5°North-5°South)(170-120°West)</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
