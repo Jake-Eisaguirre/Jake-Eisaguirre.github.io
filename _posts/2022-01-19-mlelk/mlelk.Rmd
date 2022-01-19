@@ -1,0 +1,621 @@
+---
+title: "Predicting Elk Distribution using Machine Learning"
+description: |
+  The below code illustrates a few different methods in how one could use machine learning to predict species distribution and how to calibrate/train the models for more accurate predictions.
+author:
+  - name: Jake Eisaguirre
+    url: https://github.com/mk-waves/mk-waves-tutorial
+date: 2022-01-19
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+# load packages, installing if missing
+if (!require(librarian)){
+  install.packages("librarian")
+  library(librarian)
+}
+
+.libPaths(c(.libPaths(), "/Users/bbest/R/x86_64-pc-linux-gnu-library/4.0"))
+
+
+librarian::shelf(
+  raster, dismo, dplyr, DT, ggplot2, here, htmltools, leaflet, mapview, purrr, readr, rgbif, rgdal, rJava, sdmpredictors, sf, spocc, tidyr, geojsonio)
+select <- dplyr::select # overwrite raster::select
+
+# set random seed for reproducibility
+set.seed(42)
+
+# directory to store data
+dir_data <- here("data/sdm")
+dir.create(dir_data, showWarnings = F)
+```
+
+```{r}
+obs_csv <- here("obs.csv")
+obs_geo <- here("obs.geojson")
+
+# get species occurrence data from GBIF with coordinates
+(res <- spocc::occ(
+  query = 'Cervus canadensis', 
+  from = 'gbif', has_coords = T,
+  limit = 12000))
+
+# extract data frame from result
+df <- res$gbif$data[[1]] 
+nrow(df) # number of rows
+```
+
+```{r}
+# convert to points of observation from lon/lat columns in data frame
+obs <- df %>% 
+  filter(longitude < 0) %>% #<- North America Only
+  select("longitude", "latitude") %>% 
+  sf::st_as_sf(
+    coords = c("longitude", "latitude"),
+    crs = st_crs(4326))
+
+readr::write_csv(df, obs_csv)
+geojsonio::geojson_write(obs, obs_geo)
+```
+
+
+```{r}
+# show points on map
+mapview::mapview(obs, map.types = "Esri.WorldImagery")
+```
+
+
+```{r}
+dir_env <- here("env")
+
+# set a default data directory
+options(sdmpredictors_datadir = dir_env)
+
+# choosing terrestrial
+env_datasets <- sdmpredictors::list_datasets(terrestrial = TRUE, marine = FALSE)
+
+# show table of datasets
+env_datasets %>% 
+  select(dataset_code, description, citation) %>% 
+  DT::datatable()
+```
+
+```{r}
+# choose datasets for a vector
+env_datasets_vec <- c("WorldClim", "ENVIREM")
+
+# get layers
+env_layers <- sdmpredictors::list_layers(env_datasets_vec)
+DT::datatable(env_layers)
+```
+
+```{r}
+# choose layers after some inspection and perhaps consulting literature
+env_layers_vec <- c("WC_alt", "WC_bio1", "WC_bio12", "ER_tri", "ER_thermicityIndex")
+
+# get layers
+env_stack <- load_layers(env_layers_vec)
+
+# interactive plot layers, hiding all but first (select others)
+#mapview(env_stack, hide = T)
+plot(env_stack, nc=2)
+```
+
+```{r}
+obs_hull_geo <- here("obs_hull.geojson")
+
+
+# make convex hull around points of observation
+obs_hull <- sf::st_convex_hull(st_union(obs))
+
+# show points on map
+mapview(
+  list(obs, obs_hull))
+```
+
+```{r}
+# save obs hull
+write_sf(obs_hull, obs_hull_geo)
+
+obs_hull_sp <- sf::as_Spatial(obs_hull)
+
+env_stack <- raster::mask(env_stack, obs_hull_sp) %>% 
+  raster::crop(extent(obs_hull_sp))
+
+mapview(obs) + 
+  mapview(env_stack, hide = T)
+```
+
+```{r}
+absence_geo <- here("absence.geojson")
+pts_geo     <- here("pts.geojson")
+pts_env_csv <- here("pts_env.csv")
+
+# get raster count of observations
+r_obs <- rasterize(
+  sf::as_Spatial(obs), env_stack[[1]], field=1, fun='count')
+
+mapview(obs) + 
+  mapview(r_obs)
+```
+
+```{r}
+# create mask for 
+r_mask <- mask(env_stack[[1]] > -Inf, r_obs, inverse=T)
+
+absence <- dismo::randomPoints(r_mask, nrow(obs)) %>% 
+  as_tibble() %>% 
+  st_as_sf(coords = c("x", "y"), crs = 4326)
+
+mapview(obs, col.regions = "green") + 
+  mapview(absence, col.regions = "gray")
+```
+
+```{r}
+# combine presence and absence into single set of labeled points 
+pts <- rbind(
+  obs %>% 
+    mutate(
+      present = 1) %>% 
+    select(present),
+  absence %>% 
+    mutate(
+      present = 0)) %>% 
+  mutate(
+    ID = 1:n()) %>% 
+  relocate(ID)
+write_sf(pts, pts_geo)
+
+# extract raster values for points
+pts_env <- raster::extract(env_stack, as_Spatial(pts), df=TRUE) %>% 
+  tibble() %>% 
+  # join present and geometry columns to raster value results for points
+  left_join(
+    pts %>% 
+      select(ID, present),
+    by = "ID") %>% 
+  relocate(present, .after = ID) %>% 
+  # extract lon, lat as single columns
+  mutate(
+    #present = factor(present),
+    lon = st_coordinates(geometry)[,1],
+    lat = st_coordinates(geometry)[,2]) %>% 
+  select(-geometry)
+
+write_csv(pts_env, pts_env_csv)
+```
+
+```{r}
+
+pts_env %>% 
+  select(-ID) %>% 
+  mutate(
+    present = factor(present)) %>% 
+  pivot_longer(-present) %>% 
+  ggplot() +
+  geom_density(aes(x = value, fill = present)) + 
+  scale_fill_manual(values = alpha(c("gray", "green"), 0.5)) +
+  scale_x_continuous(expand=c(0,0)) +
+  scale_y_continuous(expand=c(0,0)) +
+  theme_bw() + 
+  facet_wrap(~name, scales = "free") +
+  theme(
+    legend.position = c(1, 0),
+    legend.justification = c(1, 0))
+```
+
+```{r}
+pts_env_csv <- here("pts_env.csv")
+
+pts_env <- read_csv(pts_env_csv)
+nrow(pts_env)
+
+
+datatable(pts_env, rownames = F)
+
+```
+
+```{r}
+GGally::ggpairs(
+  select(pts_env, -ID),
+  aes(color = factor(present)))
+```
+
+```{r}
+# setup model data
+d <- pts_env %>%
+#  # remove terms we don't want to model
+  tidyr::drop_na() # drop the rows with NA values
+nrow(d)
+```
+
+```{r}
+# fit a linear model
+mdl <- lm(present ~ ., data = d)
+summary(mdl)
+```
+```{r}
+y_predict <- predict(mdl, d, type="response")
+y_true    <- pts_env$present
+
+range(y_predict)
+
+range(y_true)
+```
+
+```{r}
+# show term plots
+termplot(mdl, partial.resid = TRUE, se = TRUE, main = F)
+```
+
+```{r}
+# fit a generalized linear model with a binomial logit link function
+mdl <- glm(present ~ ., family = binomial(link="logit"), data = d)
+summary(mdl)
+```
+
+```{r}
+y_predict <- predict(mdl, d, type="response")
+
+range(y_predict)
+```
+
+```{r}
+
+librarian::shelf(mgcv)
+
+# fit a generalized additive model with smooth predictors
+mdl <- mgcv::gam(
+  formula = present ~ s(WC_alt) + s(WC_bio1) + 
+    s(WC_bio12) + s(ER_tri) + s(ER_thermicityIndex) + s(lon) + s(lat), 
+  family = binomial, data = d)
+summary(mdl)
+```
+```{r}
+# show term plots
+plot(mdl, scale=0)
+```
+```{r}
+# load extra packages
+librarian::shelf(
+  maptools, sf)
+
+# show version of maxent
+maxent()
+```
+
+```{r}
+
+env_stack <- stack(env_stack)
+plot(env_stack, nc=2)
+```
+
+```{r}
+# get presence-only observation points (maxent extracts raster values for you)
+
+obs_sp <- read_sf(here("_posts", "2022-01-19-mlelk", "obs.geojson")) %>% 
+  sf::as_Spatial() # maxent prefers sp::SpatialPoints over newer sf::sf class
+
+# fit a maximum entropy model
+mdl <- maxent(env_stack, obs_sp)
+```
+
+```{r}
+# plot variable contributions per predictor
+plot(mdl)
+```
+
+```{r}
+# plot term plots
+response(mdl)
+```
+
+```{r}
+# predict
+y_predict <- predict(env_stack, mdl) #, ext=ext, progress='')
+
+plot(y_predict, main='Maxent, raw prediction')
+data(wrld_simpl, package="maptools")
+plot(wrld_simpl, add=TRUE, border='dark grey')
+
+```
+
+```{r}
+# global knitr chunk options
+knitr::opts_chunk$set(
+  warning = FALSE, 
+  message = FALSE)
+
+# load packages
+librarian::shelf(
+  caret,       # m: modeling framework
+  dplyr, ggplot2 ,here, readr, 
+  pdp,         # X: partial dependence plots
+  rpart,       # m: recursive partition modeling
+  rpart.plot,  # m: recursive partition plotting
+  rsample,     # d: split train/test data
+  skimr,       # d: skim summarize data table
+  vip)         # X: variable importance
+
+# options
+options(
+  scipen = 999,
+  readr.show_col_types = F)
+set.seed(42)
+
+# graphical theme
+ggplot2::theme_set(ggplot2::theme_light())
+
+# paths
+dir_data    <- here("data/sdm")
+pts_env_csv <- here("pts_env.csv")
+
+# read data
+pts_env <- read_csv(pts_env_csv)
+d <- pts_env %>% 
+  select(-ID) %>%                   # not used as a predictor x
+  mutate(
+    present = factor(present)) %>%  # categorical response
+  na.omit()                         # drop rows with NA
+skim(d)
+```
+
+```{r}
+# create training set with 80% of full data
+d_split  <- rsample::initial_split(d, prop = 0.8, strata = "present")
+d_train  <- rsample::training(d_split)
+
+# show number of rows present is 0 vs 1
+table(d$present)
+```
+
+```{r}
+# run decision stump model
+mdl <- rpart(
+  present ~ ., data = d_train, 
+  control = list(
+    cp = 0, minbucket = 5, maxdepth = 1))
+mdl
+```
+
+```{r}
+# plot tree 
+par(mar = c(1, 1, 1, 1))
+rpart.plot(mdl)
+```
+
+```{r}
+# decision tree with defaults
+mdl <- rpart(present ~ ., data = d_train)
+mdl
+```
+
+```{r}
+rpart.plot(mdl)
+
+# plot complexity parameter
+plotcp(mdl)
+
+# rpart cross validation results
+mdl$cptable
+```
+
+```{r}
+# caret cross validation results
+mdl_caret <- train(
+  present ~ .,
+  data       = d_train,
+  method     = "rpart",
+  trControl  = trainControl(method = "cv", number = 10),
+  tuneLength = 20)
+
+ggplot(mdl_caret)
+```
+
+```{r}
+vip(mdl_caret, num_features = 40, bar = FALSE)
+
+```
+
+```{r}
+# Construct partial dependence plots
+p1 <- partial(mdl_caret, pred.var = "lat") %>% autoplot()
+p2 <- partial(mdl_caret, pred.var = "WC_bio12") %>% autoplot()
+p3 <- partial(mdl_caret, pred.var = c("lat", "WC_bio1")) %>% 
+  plotPartial(levelplot = FALSE, zlab = "yhat", drape = TRUE, 
+              colorkey = TRUE, screen = list(z = -20, x = -60))
+
+# Display plots side by side
+gridExtra::grid.arrange(p1, p2, p3, ncol = 3)
+```
+
+```{r}
+library(ranger)
+# number of features
+n_features <- length(setdiff(names(d_train), "present"))
+
+# fit a default random forest model
+mdl_rf <- ranger(present ~ ., data = d_train)
+
+# get out of the box RMSE
+(default_rmse <- sqrt(mdl_rf$prediction.error))
+```
+
+```{r}
+# re-run model with impurity-based variable importance
+mdl_impurity <- ranger(
+  present ~ ., data = d_train,
+  importance = "impurity")
+
+# re-run model with permutation-based variable importance
+mdl_permutation <- ranger(
+  present ~ ., data = d_train,
+  importance = "permutation")
+p1 <- vip::vip(mdl_impurity, bar = FALSE)
+p2 <- vip::vip(mdl_permutation, bar = FALSE)
+
+gridExtra::grid.arrange(p1, p2, nrow = 1)
+```
+
+```{r}
+# global knitr chunk options
+knitr::opts_chunk$set(
+  warning = FALSE, 
+  message = FALSE)
+
+# load packages
+librarian::shelf(
+  dismo, # species distribution modeling: maxent(), predict(), evaluate(), 
+  dplyr, ggplot2, GGally, here, maptools, readr, 
+  raster, readr, rsample, sf,
+  usdm)  # uncertainty analysis for species distribution models: vifcor()
+select = dplyr::select
+
+# options
+set.seed(42)
+options(
+  scipen = 999,
+  readr.show_col_types = F)
+ggplot2::theme_set(ggplot2::theme_light())
+
+# paths
+dir_data      <- here("data/sdm")
+pts_geo       <- file.path(dir_data, "pts.geojson")
+env_stack_grd <- file.path(dir_data, "env_stack.grd")
+mdl_maxv_rds  <- file.path(dir_data, "mdl_maxent_vif.rds")
+
+
+
+```
+
+```{r}
+# create training set with 80% of full data
+pts_split  <- rsample::initial_split(
+  pts, prop = 0.8, strata = "present")
+pts_train  <- rsample::training(pts_split)
+pts_test   <- rsample::testing(pts_split)
+
+pts_train_p <- pts_train %>% 
+  filter(present == 1) %>% 
+  as_Spatial()
+pts_train_a <- pts_train %>% 
+  filter(present == 0) %>% 
+  as_Spatial()
+```
+
+```{r}
+# show pairs plot before multicollinearity reduction with vifcor()
+pairs(env_stack)
+```
+
+```{r}
+# calculate variance inflation factor per predictor, a metric of multicollinearity between variables
+vif(env_stack)
+```
+
+```{r}
+# stepwise reduce predictors, based on a max correlation of 0.7 (max 1)
+v <- vifcor(env_stack, th=0.7) 
+v
+```
+
+```{r}
+# reduce enviromental raster stack by 
+env_stack_v <- usdm::exclude(env_stack, v)
+
+# show pairs plot after multicollinearity reduction with vifcor()
+pairs(env_stack_v)
+```
+
+```{r}
+# fit a maximum entropy model
+mdl_maxv <- maxent(env_stack_v, sf::as_Spatial(pts_train))
+readr::write_rds(mdl_maxv, here("mdl_maxv_rds"))
+
+mdl_maxv <- read_rds(here("mdl_maxv_rds"))
+
+# plot variable contributions per predictor
+plot(mdl_maxv)
+```
+
+```{r}
+# plot term plots
+response(mdl_maxv)
+```
+
+```{r}
+# predict
+y_maxv <- predict(env_stack, mdl_maxv) #, ext=ext, progress='')
+
+plot(y_maxv, main='Maxent, raw prediction')
+data(wrld_simpl, package="maptools")
+plot(wrld_simpl, add=TRUE, border='dark grey')
+```
+
+```{r}
+pts_test_p <- pts_test %>% 
+  filter(present == 1) %>% 
+  as_Spatial()
+pts_test_a <- pts_test %>% 
+  filter(present == 0) %>% 
+  as_Spatial()
+
+y_maxv <- predict(mdl_maxv, env_stack)
+#plot(y_maxv)
+
+e <- dismo::evaluate(
+  p     = pts_test_p,
+  a     = pts_test_a, 
+  model = mdl_maxv,
+  x     = env_stack)
+e
+```
+
+```{r}
+plot(e, 'ROC')
+
+thr <- threshold(e)[['spec_sens']]
+thr
+```
+
+```{r}
+p_true <- na.omit(raster::extract(y_maxv, pts_test_p) >= thr)
+a_true <- na.omit(raster::extract(y_maxv, pts_test_a) < thr)
+
+# (t)rue/(f)alse (p)ositive/(n)egative rates
+tpr <- sum(p_true)/length(p_true)
+fnr <- sum(!p_true)/length(p_true)
+fpr <- sum(!a_true)/length(a_true)
+tnr <- sum(a_true)/length(a_true)
+
+matrix(
+  c(tpr, fnr,
+    fpr, tnr), 
+  nrow=2, dimnames = list(
+    c("present_obs", "absent_obs"),
+    c("present_pred", "absent_pred")))
+```
+
+```{r}
+# add point to ROC plot
+plot(e, 'ROC')
+points(fpr, tpr, pch=23, bg="blue")
+```
+
+```{r}
+
+plot(y_maxv > thr)
+data(wrld_simpl, package="maptools")
+plot(wrld_simpl, add=TRUE, border='black')
+
+```
+
+
