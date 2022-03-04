@@ -5,15 +5,15 @@ description: |
 author:
   - name: Jake Eisaguirre
     url: {}
-date: 2021-11-10
+date: 2022-01-03
 output:
   distill::distill_article:
     self_contained: false
+preview: swell.gif
 ---
 
-
-```{r setup, include=F}
-knitr::opts_chunk$set(echo = T)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 
 library(leafem) 
 library(terra)
@@ -33,149 +33,153 @@ library(terra)
 library(rasterVis)
 library(animation)
 library(htmlwidgets)
+library(ggquiver)
+library(gganimate)
+library(REdaS)
+library(transformr)
+library(magick)
+
+
 ```
 
-
-# Read in and subset data for variable and ROI
+#### Read in and subset data for variable and ROI
 ```{r}
-url <- "http://thredds.cdip.ucsd.edu//thredds/fileServer/cdip/model/MOP_grids/CA_0.01_forecast.nc"
+date <- as.Date(Sys.time())
+  
+
+date <- as.Date(date) %>% 
+  paste0("T12:00:00Z")
+
+past_date <- as.Date(date) +3 
+
+fut_date <- as.Date(past_date) %>% 
+  paste0("T12:00:00Z") 
+
+#height
+url_Hs <- paste0("http://thredds.cdip.ucsd.edu/thredds/ncss/cdip/model/MOP_grids/CA_0.01_forecast.nc?var=waveHs&north=34.75&west=-121&east=-118.4&south=33.55&disableLLSubset=on&disableProjSubset=on&horizStride=1&time_start=", date, "&time_end=", fut_date, "&timeStride=1&addLatLon=true&accept=netcdf")
+
 
 options(timeout = 10000)
 
-#data <- download.file(url, "/Users/JaketheBoss/Desktop/wave_data.nc")
+Hs <- download.file(url_Hs, here("wave_data_Hs.nc"))
 
-data_set <- "wave_data.nc"
+Hs <- here("wave_data_Hs.nc")
+
+wave_Hs <-brick(Hs)
+
+Hs_data <- as.data.frame(rasterToPoints(wave_Hs)) %>% 
+  pivot_longer(!c(x,y), names_to = "date", values_to = "height")
 
 
-waves <- rast(data_set, sub = "waveHs")
-ROI <- ext(-121.0062, -118.7438, 33.10625, 34.90625)
-wave_crop <- crop(waves, ROI)
+#Direction
+url_Dp <- paste0("http://thredds.cdip.ucsd.edu/thredds/ncss/cdip/model/MOP_grids/CA_0.01_forecast.nc?var=waveDp&north=34.75&west=-121&east=-118.4&south=33.55&disableLLSubset=on&disableProjSubset=on&horizStride=1&time_start=", date, "&time_end=", fut_date, "&timeStride=1&addLatLon=true&accept=netcdf")
+
+
+options(timeout = 10000)
+
+Dp <- download.file(url_Dp, here("wave_data_Dp.nc"))
+
+Dp <- here("wave_data_Dp.nc")
+
+wave_Dp <-brick(Dp)
+
+Dp_data <- as.data.frame(rasterToPoints(wave_Dp)) %>% 
+  pivot_longer(!c(x,y), names_to = "date", values_to = "direction")
+
+#period
+url_Ta <- paste0("http://thredds.cdip.ucsd.edu/thredds/ncss/cdip/model/MOP_grids/CA_0.01_forecast.nc?var=waveTa&north=34.75&west=-121&east=-118.4&south=33.55&disableLLSubset=on&disableProjSubset=on&horizStride=1&time_start=", date, "&time_end=", fut_date, "&timeStride=1&addLatLon=true&accept=netcdf")
+
+
+options(timeout = 10000)
+
+Ta <- download.file(url_Ta, here("wave_data_Ta.nc"))
+
+Ta <- here("wave_data_Ta.nc")
+
+wave_Ta <-brick(Ta)
+
+Ta_data <- as.data.frame(rasterToPoints(wave_Ta)) %>% 
+  pivot_longer(!c(x,y), names_to = "date", values_to = "period")
+```
+
+#### clean data
+```{r}
+un_data <- left_join(Hs_data, Dp_data) 
+
+full_data <- left_join(un_data, Ta_data) %>% 
+  mutate(date = gsub("X", "", date)) %>% 
+  mutate(date = as.numeric(date))
+
+clean_data <- full_data %>% 
+  mutate(date = as_datetime(date)) %>% 
+  mutate(height = 3.28 * height) %>% 
+  mutate(angle = ((3.14/180)*(direction) + 0.5))
+
+
+
 
 ```
 
 
-
-# Shape Files
+#### Shape Files
 ```{r}
-islands <- read_sf(here("/Users","JaketheBoss", "Documents", "Bren", "SST Code", 
-                        "SST", "SST", "data", "shape", "channel_islands.shp")) %>% 
+islands <- read_sf(here("_posts", "2021-11-10-cdip-bouy-forecast", "shape", "channel_islands.shp")) %>% 
   mutate(geometry = st_transform(geometry, crs = 4326)) %>% 
-  filter(!NAME %in% c("Santa Catalina", "San Clemente"))
+  filter(!NAME %in% c("Santa Catalina", "San Clemente", "Santa Barbara", "San Nicolas"))
 
-ca <- read_sf(here("/Users","JaketheBoss", "Documents", "Bren", 
-                   "SST Code", "SST", "SST", "s_11au16", "s_11au16.shp")) %>% 
+ca <- read_sf(here("_posts", "2021-11-10-cdip-bouy-forecast", "s_11au16", "s_11au16.shp")) %>% 
   mutate(geometry = st_transform(geometry, crs = 4326)) %>% 
-  filter(NAME == "California")
+  filter(NAME == "California") %>% 
+  select(geometry)
+
+merged_shapes <- bind_rows(ca, islands)
 ```
 
-
-
-# Clean dates and re-sample
-```{r}
-remove_txt <- gsub("waveHs_waveTime.", "", names(wave_crop)) %>% 
-  as.numeric() %>% 
-  as_datetime()
-
-names(wave_crop) <- c(remove_txt)
-
-
-raz_temp <- rast(xmin = -121.0062,
-                      xmax = -118.7438,
-                      ymin = 33.10625,
-                      ymax = 34.90625,
-                      resolution = c(0.001, 0.001))
-
-brick_resample <- resample(wave_crop, raz_temp)
-
-
-wave_pal <- colorRampPalette(c("blue", "cyan", "yellow", "red"))
-
-plot(brick_resample, col = wave_pal(25))
-
-
-brick_resample <- brick(brick_resample)
-
-rm(waves, ROI, raz_temp)
-gc()
-
-```
-
-
-
-#Exploratory leaflet map (work in progress)
+#### GGAnimate
 ```{r}
 
-t_1 <- subset(brick_resample, 1:1)  
+wind.arrows <- clean_data %>% 
+    filter(x %in% sort(unique(x))[c(T, F, F, F, F, F, F, F, 
+                                    F, F, F, F, F, F, F)], 
+           y %in% sort(unique(y))[c(T, F, F, F, F, F, F, F, 
+                                    F, F, F, F, F, F, F)])
 
-base_map <- leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
-  addPolygons(data = islands, color = 'black', opacity = 1, weight = 2, fill = F)%>% 
-  addPolygons(data = ca, color = 'black', opacity = 1, weight = 2, fill = F) %>%
-  addProviderTiles("Esri.OceanBasemap") %>% 
-  setView(lng = -119.700336, lat = 34.14, zoom = 8.5)
-  
+a <- ggplot(data = clean_data) +
+  geom_raster(aes(y=y, x=x, 
+                  fill = height, frame = date), interpolate = T) +
+  geom_spoke(data = wind.arrows, aes(y=y, x=x, angle = angle, radius = scales::rescale(period, c(.02, .15))), 
+             arrow=arrow(length = unit(0.2,"cm"))) + 
+  scale_fill_gradientn(colours = c("slategray1","skyblue", 
+                                   "royalblue1", "mediumblue", 
+                                   "magenta1", "firebrick1", "firebrick3")) +
+  transition_states(date) +
+  labs(title = 'Date: {closest_state}', fill = "Swell (ft)",
+       subtitle = 
+        'Arrow Length Indicates Swell Period & Arrow Direction Indicates Swell Direction') +
+  theme_classic() +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  geom_sf(data = merged_shapes, color = "black", fill = "grey70") +
+  coord_sf(xlim = c(-121.01, -118.4), ylim = c(33.55, 34.75), expand = F) +
+  theme(axis.line=element_blank(),
+        axis.ticks=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank())
 
-add_one_layer <- addRasterImage(base_map, t_1, group = "t_1", colors = wave_pal(5)) %>% 
-  addLayersControl(
-      baseGroups = c("t_1","t_2","t_3","t_4","t_5","t_6","t_7","t_8","t_9",
-                     "t_10","t_11","t_12","t_13","t_14","t_15","t_16"),
-      options = layersControlOptions(collapsed = FALSE))%>% 
-    setView(lng = -119.200336, lat = 34.14, zoom = 9) %>% 
-    setMaxBounds(lng1 = -121.0,
-                 lat1 = 33.1125,
-                 lng2 = -118.75,
-                 lat2 = 34.9) 
-
-add_one_layer
-
-
-```
-
-
-
-#Shiny App (still de-bugging)
-```{r}
-
-library(shiny)
-ui <- fluidPage(
-  
-  titlePanel("Wave Model"),
-  
-  leafletOutput("brick_resample", height = 500),
-  
-  selectInput("names", "Select Date Range",
-              names(brick_resample))
-  
-)
-
-server <- function(input, output, session){
-  
-  #Reactive
-   slid <- reactive({
-     brick_resample$names$data_set
-     #brick_resample$names
-     #names(brick_resample)
-     #brick_resample[names]
-   })
+animate(a, nframes = 40, fps = 5) 
 
 
-  #Map
-  output$brick_resample <- renderLeaflet({
-    
-    leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
-      addPolygons(data = islands, color = 'black', opacity = 1, weight = 2, fill = F)%>% 
-      addPolygons(data = ca, color = 'black', opacity = 1, weight = 2, fill = F)%>%
-      addProviderTiles("Esri.OceanBasemap") %>% 
-      addRasterImage(x = slid(), colors = wave_pal(5)) %>% 
-        setView(lng = -119.200336, lat = 34.14, zoom = 9) %>% 
-        setMaxBounds(lng1 = -121.0,
-                 lat1 = 33.1125,
-                 lng2 = -118.75,
-                 lat2 = 34.9)
-    })
-}
-
-shinyApp(ui = ui, server = server)
   
 ```
+
+
+
+
+
+
+
 
 
