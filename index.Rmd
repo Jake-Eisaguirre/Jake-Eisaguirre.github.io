@@ -6,14 +6,32 @@ links:
     url: "mailto:eisaguirre@bren.ucsb.edu"
   - label: GitHub
     url: "https://github.com/Jake-Eisaguirre/"
-  - label: Bren Profile
-    url: "https://bren.ucsb.edu/people/jake-eisaguirre"
+  - label: RIBBiTR Profile
+    url: "https://ribbitr.com/people/"
 output:
   postcards::trestles
 site: distill::distill_website
 ---
 ### Biography                                                                                                                                                                                                                                                                          
-I am an experienced kelp forest field technician who is a first-year Data Science Master student at The Bren School of Environmental Science and Management. I graduated in 2019 from the University of California, Santa Barbara, with a B.S. in Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology. Since 2017, I have been conducting kelp forest surveys at the Northern Channel Islands for the Partnership of Interdisciplinary Studies of Coastal Oceans (PISCO). I have also worked for the California Department of Fish and Wildlife (CDFW) under the Pelagic Fisheries and Ecosystem Project as a squid fishery dock sampler. During my time with PISCO and CDFW, I began learning the proper tools needed to analyze large ecological data sets. I quickly understood the power and importance of using advanced statistical analysis and computer software to answer ecological questions. My field seasons with PISCO have reinforced a connection with our natural world that drives me to answer the unknowns within our ecosystems. I have life goals to apply my Data Science skills to the ecological world to uncover meaningful tools that will be used to conserve and restore our natural resources.
+I am the Data Manager for the Resilience Institute Bridging Biological Training and Research ([RIBBiTR](https://ribbitr.com/)) aiding in the understanding of emerging infectious amphibian diseases. Prior to my current position I completed a Masters in Environmental Data Science from The Bren School of Environmental Science & Management. I received my undergraduate degree from the University of California, Santa Barbara, with a B.S. in Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology. From 2017 to 2021, I conducted kelp forest surveys at the Northern Channel Islands for the Partnership of Interdisciplinary Studies of Coastal Oceans ([PISCO](https://www.piscoweb.org/)). I have also worked for the California Department of Fish and Wildlife (CDFW) under the Pelagic Fisheries and Ecosystem Project as a squid fishery dock sampler. During my time at Bren, I began learning the proper tools needed to analyze large ecological data sets. I quickly understood the power and importance of using advanced statistical analysis and computer software to answer ecological questions. My field seasons with PISCO have reinforced a connection with our natural world that drives me to answer the unknowns within our ecosystems. I have life goals to apply my Data Science skills to the ecological world to uncover meaningful tools that will be used to conserve and restore our natural resources.
+
+[2022 Bren Capstone ShinyApp](https://shinyapps.bren.ucsb.edu/ShinyAppMooreaViz/)
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+### Experience
+
+**Data Manager** - Resilience Institute Bridging Biological Training and Research, Earth Research Institute, UCSB (Present)
+
+
+**Research Technician** - Caselle lab/PISCO, Marine Science Institute, UCSB (2016-2021)
+
+
+**Scientific Aid** - Pelagic Fisheries and Ecosystem Project, California Department of Fish and Wildlife (2019–2020)
+
+
+**UC Reserve Steward** - Kenneth Norris Rancho Marino UC Reserve,UC Natural Reserve System (2019–2020)
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -24,16 +42,4 @@ Bren School of Environmental Science & Management - Santa Barbara, California (2
 
 **Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology (B.S.)**                               
 University of California, Santa Barbara - Santa Barbara, California (2019)
-
---------------------------------------------------------------------------------------------------------------------------------------------
-
-### Experience
-
-**Research Technician** - Caselle lab/PISCO, Marine Science Institute, UCSB (2016-2021)
-
-
-**Scientific Aid** - Pelagic Fisheries and Ecosystem Project, California Department of Fish and Wildlife (2019–2020)
-
-
-**UC Reserve Steward** - Kenneth Norris Rancho Marino UC Reserve,UC Natural Reserve System (2019–2020)
 
