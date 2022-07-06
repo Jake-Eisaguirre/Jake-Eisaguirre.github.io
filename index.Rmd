@@ -1,6 +1,6 @@
 ---
 title: "Jake Eisaguirre"
-image: "IMG_3615_small.jpg"
+image: "Jake2.jpeg"
 links:
   - label: Email
     url: "mailto:eisaguirre@bren.ucsb.edu"
