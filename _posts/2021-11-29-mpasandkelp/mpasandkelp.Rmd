@@ -1,6 +1,6 @@
 ---
 title: "Do MPAs Increase Kelp Densities?"
-description: |
+description: "I analyzed 20 years of long-term kelp forest data collected by the Partnership for Interdisciplinary Studies of Coastal Oceans at the Northern Channel Islands in hopes of determining the drivers of kelp abundance."  
 
 author:
   - name: Jake Eisaguirre

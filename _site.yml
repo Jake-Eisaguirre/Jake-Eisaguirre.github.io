@@ -1,12 +1,14 @@
 name: "Jake-Eisaguirre.github.io"
-title: "My Website"
+title: "Jake Eisaguirre"
 description: |
   My Website
 output_dir: "docs"
 navbar:
   right:
-    - text: "Biography"
+    - text: "Home"
       href: index.html
+    - text: "Biography"
+      href: biography.html
     - text: "Resume"
       href: Eisaguirre_resume.pdf
     - text: "Blog"
