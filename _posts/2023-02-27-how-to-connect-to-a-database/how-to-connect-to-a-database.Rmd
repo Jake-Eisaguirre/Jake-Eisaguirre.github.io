@@ -1,0 +1,22 @@
+---
+title: "How to Connect to a Database"
+description: |
+  This tutorial was created in hopes to assist my co-workers in connecting to the RIBBiTR PostgreSQL Database I have built.
+author: 
+  - name: Jake Eisaguirre
+    url: {}
+date: 2023-02-03
+header-includes:
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
+output:
+  distill::distill_article:
+    self_contained: false
+preview: prev.png
+---
+
+```{r, echo=F, out.width = "1000px", out.height= "950px"}
+
+knitr::include_graphics(here::here("_posts", "2023-02-27-how-to-connect-to-a-database", "DB_Connection.pdf"))
+```
+

@@ -1,0 +1,22 @@
+---
+title: "dbplyr Package Tutorial"
+description: |
+  This tutorial demonstrates the use of the dbplyr package for querying of PostgreSQL databases. 
+author:
+  - name: Jake Eisaguirre
+    url: {}
+date: 2023-02-27
+output:
+  distill::distill_article:
+    self_contained: false
+preview: preview.png
+---
+
+
+```{r, echo=F, out.width = "1000px", out.height= "950px"}
+
+knitr::include_graphics(here::here("_posts", "2023-02-27-dbplyrtutorial", "dbplyr_Tutorial.pdf"))
+```
+
+
+
