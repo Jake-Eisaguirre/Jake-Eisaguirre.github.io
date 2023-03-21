@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2023-03-21-jointutorial/",
+    "title": "Join Statements Tutorial",
+    "description": "This tutorial demonstrates how to join data sets together with various join statements.",
+    "author": [
+      {
+        "name": "Jake Eisaguirre",
+        "url": {}
+      }
+    ],
+    "date": "2023-03-21",
+    "categories": [],
+    "contents": "\n\n\n\n\n\n",
+    "preview": "posts/2023-03-21-jointutorial/preview.png",
+    "last_modified": "2023-03-21T10:12:58-07:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2023-02-27-dbplyrtutorial/",
     "title": "dbplyr Package Tutorial",
     "description": "This tutorial demonstrates the use of the dbplyr package for querying of PostgreSQL databases.",
