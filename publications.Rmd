@@ -5,9 +5,13 @@ listing: publications
 
 
 ## Publications
-Eisaguirre, J.H., J.M. Eisaguirre, K. Davis, P.M. Carlson, S.D. Gaines, J.E. Caselle. 2019. Trophic redundancy and predator size class structure drive differences in kelp forest ecosystem dynamics. Ecology.101(5):e02993. 10.1002/ecy.2993?
+**Eisaguirre, J.H.**, J.M. Eisaguirre, K. Davis, P.M. Carlson, S.D. Gaines, J.E. Caselle. 2019. Trophic redundancy and predator size class structure drive differences ins kelp forest ecosystem dynamics. Ecology.101(5):e02993. 10.1002/ecy.2993?
 
 **<https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecy.2993>**
+
+Honeyman, C., Carlson, P., Jainese, C., Parsons-Field, A., **Eisaguirre, J.**, Davis, K., Giraldo-Ospina, A., Spiecker, B., & Caselle, J. E. (2023). Correspondence among multiple methods provides confidence when measuring marine protected area effects for species and assemblages. Journal of Applied Ecology, 00, 1–14. 
+
+**https://doi.org/10.1111/1365-2664.14515**
 
 
 
