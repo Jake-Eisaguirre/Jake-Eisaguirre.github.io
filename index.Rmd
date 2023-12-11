@@ -10,8 +10,6 @@ links:
     url: "https://ribbitr.com/people/"
   - label: NCEAS Profile
     url: "https://www.nceas.ucsb.edu/about-us/our-people"
-  - label: MooreaViz LTER ShinyApp
-    url: "https://shinyapps.bren.ucsb.edu/ShinyAppMooreaViz/"
 output:
   postcards::jolla
 site: distill::distill_website
