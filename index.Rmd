@@ -14,4 +14,4 @@ output:
   postcards::jolla
 site: distill::distill_website
 ---
-Welcome, I am currently the Data Manager for the Resilience Institute Bridging Biological Training and Research ([RIBBiTR](https://ribbitr.com/)) aiding in the understanding of a fungal pathogen that has globally decimated amphibian populations. I am currently located at the National Center of Ecological Analysis and Synthesis ([NCEAS](https://www.nceas.ucsb.edu/)) in Santa Barbara, California. 
+Welcome, I am currently the Data Manager/Data Architect for ([Rincon Consultants](https://www.rinconconsultants.com/)) aiding to increase efficiencies through database development and automated scripting for internal and external clients. 
