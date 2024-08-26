@@ -14,9 +14,9 @@ site: distill::distill_website
 ---
 ### Biography
 
-I am a Senior Data Analyst at Hawaiian Airlines within the Crew Resource Planning team, where I identify and address inefficiencies by leveraging my data science expertise. I specialize in aggregating complex bronze-tier data sources to produce valuable silver and gold-tier datasets that drive informed decision-making.
+I am a Senior Data Analyst at Hawaiian Airlines within the Crew Resource Planning team, where I identify and address inefficiencies by leveraging my data science expertise. I specialize in aggregating complex bronze-tier data sources to produce valuable silver and gold-tier data sets that drive informed decision-making.
 
-Prior to this role, I served as the Data Manager and Data Architect at Rincon Consultants, delivering data solutions that enhanced workflow efficiencies for both internal and external clients. From 2022 to 2024, I contributed to the Resilience Institute Bridging Biological Training and Research (RIBBiTR) by facilitating research on emerging infectious diseases affecting amphibians.
+Prior to this role, I served as the Data Manager and Data Architect at Rincon Consultants, delivering data solutions that enhanced workflow efficiencies for both internal and external clients. From 2022 to 2024, I contributed to the Resilience Institute Bridging Biological Training and Research (RIBBiTR) as the Data Manager by facilitating research on emerging infectious diseases affecting amphibians.
 
 My journey in data science began with a Master's degree in Environmental Data Science from the Bren School of Environmental Science & Management. I also hold a B.S. in Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology from the University of California, Santa Barbara.
 
