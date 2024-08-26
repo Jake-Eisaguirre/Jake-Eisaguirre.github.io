@@ -6,24 +6,32 @@ links:
     url: "mailto:eisaguirre@bren.ucsb.edu"
   - label: GitHub
     url: "https://github.com/Jake-Eisaguirre/"
-  - label: RIBBiTR Profile
-    url: "https://ribbitr.com/people/"
-  - label: NCEAS Profile
-    url: "https://www.nceas.ucsb.edu/about-us/our-people"
-  - label: Rincon Consultants
-    url: "https://rinconconsultants.com/"
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/jake-eisaguirre-2a4655224/"
 output:
   postcards::trestles
 site: distill::distill_website
 ---
-### Biography                                                                                                                                                                                                                                                                          
-I am the Data Manager/Data Architect for Rincon Consultants. At Rincon we provide Data Solutions for internal and external clients to drive efficiencies in workflows. My previous job, I was the Data Manager for the Resilience Institute Bridging Biological Training and Research ([RIBBiTR](https://ribbitr.com/)) aiding in the understanding of emerging infectious amphibian diseases. Prior to my current position I completed a Masters in Environmental Data Science from The Bren School of Environmental Science & Management. I received my undergraduate degree from the University of California, Santa Barbara, with a B.S. in Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology. From 2017 to 2021, I conducted kelp forest surveys at the Northern Channel Islands for the Partnership of Interdisciplinary Studies of Coastal Oceans ([PISCO](https://www.piscoweb.org/)). I have also worked for the California Department of Fish and Wildlife (CDFW) under the Pelagic Fisheries and Ecosystem Project as a squid fishery dock sampler. During my time at Bren, I began learning the proper tools needed to analyze large ecological data sets. I quickly understood the power and importance of using advanced statistical analysis and computer software to answer ecological questions. My field seasons with PISCO have reinforced a connection with our natural world that drives me to answer the unknowns within our ecosystems. I have life goals to apply my Data Science skills to the ecological world to uncover meaningful tools that will be used to conserve and restore our natural resources.
+### Biography
+
+I am a Senior Data Analyst at Hawaiian Airlines within the Crew Resource Planning team, where I identify and address inefficiencies by leveraging my data science expertise. I specialize in aggregating complex bronze-tier data sources to produce valuable silver and gold-tier datasets that drive informed decision-making.
+
+Prior to this role, I served as the Data Manager and Data Architect at Rincon Consultants, delivering data solutions that enhanced workflow efficiencies for both internal and external clients. From 2022 to 2024, I contributed to the Resilience Institute Bridging Biological Training and Research (RIBBiTR) by facilitating research on emerging infectious diseases affecting amphibians.
+
+My journey in data science began with a Master's degree in Environmental Data Science from the Bren School of Environmental Science & Management. I also hold a B.S. in Environmental Studies with an emphasis in Ecology, Evolution, and Marine Biology from the University of California, Santa Barbara.
+
+Before transitioning into data science, I gained extensive field experience conducting kelp forest surveys at the Northern Channel Islands for the Partnership of Interdisciplinary Studies of Coastal Oceans (PISCO) from 2017 to 2021. Additionally, I worked with the California Department of Fish and Wildlife (CDFW) under the Pelagic Fisheries and Ecosystem Project as a squid fishery dock sampler.
+
+Throughout my career, I have developed a strong proficiency in analyzing and aggregating large datasets, recognizing the critical role of advanced statistical analysis and effective data management. I am passionate about uncovering insights hidden within complex data and aligning all the pieces to present a clear and actionable narrative.
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Experience
 
-**Data Manager/Data Architect** - Rincon Consultants, Santa Barbara (Present)
+**Senior Data Analyst** - Hawaiian Airlines, Honolulu HI (Current)
+
+**Data Manager/Data Architect** - Rincon Consultants, Santa Barbara CA (2024)
 
 **Data Manager** - Resilience Institute Bridging Biological Training and Research, Earth Research Institute, UCSB (2022-2024)
 

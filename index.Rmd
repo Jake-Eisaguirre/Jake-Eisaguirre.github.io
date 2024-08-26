@@ -6,12 +6,10 @@ links:
     url: "mailto:eisaguirre@bren.ucsb.edu"
   - label: GitHub
     url: "https://github.com/Jake-Eisaguirre/"
-  - label: RIBBiTR Profile
-    url: "https://ribbitr.com/people/"
-  - label: NCEAS Profile
-    url: "https://www.nceas.ucsb.edu/about-us/our-people"
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/jake-eisaguirre-2a4655224/"
 output:
   postcards::jolla
 site: distill::distill_website
 ---
-Welcome, I am currently the Data Manager/Data Architect for ([Rincon Consultants](https://www.rinconconsultants.com/)) aiding to increase efficiencies through database development and automated scripting for internal and external clients. 
+Welcome! I am currently a Senior Data Analyst at Hawaiian Airlines, specializing in Crew Resource Planning. My role involves leveraging data science to identify inefficiencies and reduce operating costs, ultimately driving more effective decision-making.
